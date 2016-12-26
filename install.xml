@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Categoria Frete Rápido</name>
+    <code>categoria-freterapido</code>
+    <version>1.0</version>
+    <author>Frete Rápido</author>
+    <link>https://freterapido.com/</link>
+    <file path="admin/controller/catalog/category.php">
+        <operation>
+            <search><![CDATA[
+            public function add() {
+            ]]></search>
+            <add position="after"><![CDATA[
+            $this->load->language('catalog/fr_category');
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+	        public function edit() {
+            ]]></search>
+            <add position="after"><![CDATA[
+            $this->load->model('catalog/fr_category');
+            $this->load->language('catalog/fr_category');
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+            $category_info = $this->model_catalog_category->getCategory($this->request->get['category_id']);
+            ]]></search>
+            <add position="after"><![CDATA[
+            $fr_category_info = $this->model_catalog_fr_category->getCategory($this->request->get['category_id']);
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+            if (isset($this->request->post['path'])) {
+            ]]></search>
+            <add position="before"><![CDATA[
+            if (isset($this->request->post['fr_category'])) {
+                $data['fr_category'] = $this->request->post['fr_category'];
+            } elseif (!empty($fr_category_info)) {
+                $data['fr_category'] = $fr_category_info['fr_category'];
+            } else {
+                $data['fr_category'] = '';
+            }
+
+            if (isset($this->request->post['fr_category'])) {
+                $data['fr_category_id'] = $this->request->post['fr_category_id'];
+            } elseif (!empty($fr_category_info)) {
+                $data['fr_category_id'] = $fr_category_info['fr_category_id'];
+            } else {
+                $data['fr_category_id'] = '';
+            }
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/model/catalog/category.php">
+        <operation>
+            <search><![CDATA[
+            $category_id = $this->db->getLastId();
+            ]]></search>
+            <add position="after"><![CDATA[
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "category_to_fr_category` SET `category_id` = '" . (int)$category_id . "', `fr_category_id` = '" . (int)$data['fr_category_id'] . "'");
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+            $this->db->query("UPDATE " . DB_PREFIX . "category SET parent_id = '" . (int)$data['parent_id'] . "', `top` = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', `column` = '" . (int)$data['column'] . "', sort_order = '" . (int)$data['sort_order'] . "', status = '" . (int)$data['status'] . "', date_modified = NOW() WHERE category_id = '" . (int)$category_id . "'");
+            ]]></search>
+            <add position="before"><![CDATA[
+            $this->db->query("UPDATE `" . DB_PREFIX . "category_to_fr_category` SET `fr_category_id` = '" . (int)$data['fr_category_id'] . "' WHERE `category_id` = '" . (int)$category_id . "'");
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/view/template/catalog/category_form.tpl">
+        <operation>
+            <search><![CDATA[
+            <div class="tab-pane" id="tab-data">
+            ]]></search>
+            <add position="after"><![CDATA[
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="input-fr-category"><?php echo $entry_fr_category; ?></label>
+              <div class="col-sm-10">
+                <input type="text" name="fr_category" value="<?php echo $fr_category; ?>" placeholder="<?php echo $entry_fr_category; ?>" id="input-fr-category" class="form-control" />
+                <input type="hidden" name="fr_category_id" value="<?php echo $fr_category_id; ?>" />
+              </div>
+            </div>
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+            $('input[name=\'path\']').autocomplete({
+            ]]></search>
+            <add position="before"><![CDATA[
+            $('input[name=\'fr_category\']').autocomplete({
+                'source': function(request, response) {
+                    $.ajax({
+                        url: 'index.php?route=catalog/fr_category/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
+                        dataType: 'json',
+                        success: function(json) {
+                            json.unshift({
+                                fr_category_id: 0,
+                                name: '<?php echo $text_none; ?>'
+                            });
+
+                            response($.map(json, function(item) {
+                                return {
+                                    label: item['name'],
+                                    value: item['fr_category_id']
+                                }
+                            }));
+                        }
+                    });
+                },
+                'select': function(item) {
+                    $('input[name=\'fr_category\']').val(item['label']);
+                    $('input[name=\'fr_category_id\']').val(item['value']);
+                }
+            });
+            ]]></add>
+        </operation>
+    </file>
+</modification>
