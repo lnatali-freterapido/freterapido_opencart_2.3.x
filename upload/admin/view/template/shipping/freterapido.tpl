@@ -84,10 +84,10 @@ sc
           <div class="form-group">
             <label class="col-sm-2 control-label"><?php echo $entry_results; ?></label>
             <div class="col-sm-10">
-              <select name="freterapido_status" id="input-status" class="form-control">
-                <option value="1"><?php echo $text_results_nofilter; ?></option>
-                <option value="0"><?php echo $text_results_cheaper; ?></option>
-                <option value="0"><?php echo $text_results_faster; ?></option>
+              <select name="freterapido_results" id="input-status" class="form-control">
+                <option value="0"><?php echo $text_results_nofilter; ?></option>
+                <option value="1"><?php echo $text_results_cheaper; ?></option>
+                <option value="2"><?php echo $text_results_faster; ?></option>
               </select>
             </div>
           </div>
@@ -134,7 +134,7 @@ sc
 <script type="text/javascript" src="view/javascript/maskedinput/jquery.maskedinput.min.js"></script>
 <script>
   jQuery(function($){
-     $("#input-cnpj").mask("99.999.999/999-99");
+     $("#input-cnpj").mask("99.999.999/9999-99");
      $("#input-postcode").mask("99.999-999");
   });
 
