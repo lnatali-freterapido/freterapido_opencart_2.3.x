@@ -160,7 +160,7 @@
 <script type="text/javascript" src="view/javascript/maskedinput/jquery.maskedinput.min.js"></script>
 <script>
     jQuery(function($){
-        $("#input-cnpj").mask("99.999.999/9990-99");
+        $("#input-cnpj").mask("99.999.999/9999-99");
         $("#input-postcode").mask("99.999-999");
     });
 
