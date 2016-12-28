@@ -1,5 +1,4 @@
 <?php echo $header; ?><?php echo $column_left; ?>
-sc
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
@@ -40,7 +39,7 @@ sc
             </div>
           </div>
         </div>
-      	<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-freterapido" class="form-horizontal">
+        <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-freterapido" class="form-horizontal">
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
             <div class="col-sm-10">
@@ -74,20 +73,47 @@ sc
             <div class="col-sm-2 control-label"></div>
             <div class="col-sm-10">
               <h3>Correios</h3>
-              <label for="input-correios-valor-declarado"><input type="checkbox" name="freterapido_correios_valor_declarado" id="input-correios-valor-declarado" value="<?php echo $entry_correios_valor_declarado; ?>" /> <?php echo $text_correios_valor_declarado ?></label>
+              <label for="input-correios-valor-declarado">
+                <?php if ($freterapido_correios_valor_declarado) { ?>
+                <input type="checkbox" name="freterapido_correios_valor_declarado" id="input-correios-valor-declarado" checked="checked" />
+                <?php } else { ?>
+                <input type="checkbox" name="freterapido_correios_valor_declarado" id="input-correios-valor-declarado" />
+                <?php } ?>
+                <?php echo $text_correios_valor_declarado ?>
+              </label>
               <br>
-              <label for="input-correios-mao-propria"><input type="checkbox" name="freterapido_correios_mao_propria" id="input-correios-mao-propria" value="<?php echo $entry_correios_mao_propria; ?>" /> <?php echo $text_correios_mao_propria ?></label>
+              <label for="input-correios-mao-propria">
+                <?php if ($freterapido_correios_mao_propria) { ?>
+                <input type="checkbox" name="freterapido_correios_mao_propria" id="input-correios-mao-propria" checked="checked" />
+                <?php } else { ?>
+                <input type="checkbox" name="freterapido_correios_mao_propria" id="input-correios-mao-propria" />
+                <?php } ?>
+                <?php echo $text_correios_mao_propria ?>
+              </label>
               <br>
-              <label for="input-correios-aviso-recebimento"><input type="checkbox" name="freterapido_correios_aviso_recebimento" id="input-correios-aviso-recebimento" value="<?php echo $entry_correios_aviso_recebimento; ?>" /> <?php echo $text_correios_aviso_recebimento ?></label>
+              <label for="input-correios-aviso-recebimento">
+                <?php if ($freterapido_correios_aviso_recebimento) { ?>
+                <input type="checkbox" name="freterapido_correios_aviso_recebimento" id="input-correios-aviso-recebimento" checked="checked" />
+                <?php } else { ?>
+                <input type="checkbox" name="freterapido_correios_aviso_recebimento" id="input-correios-aviso-recebimento" />
+                <?php } ?>
+                <?php echo $text_correios_aviso_recebimento ?>
+              </label>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label"><?php echo $entry_results; ?></label>
             <div class="col-sm-10">
               <select name="freterapido_results" id="input-status" class="form-control">
-                <option value="0"><?php echo $text_results_nofilter; ?></option>
-                <option value="1"><?php echo $text_results_cheaper; ?></option>
-                <option value="2"><?php echo $text_results_faster; ?></option>
+                <option value="0" <?php echo $freterapido_results == 0 ? 'selected="selected"' : '' ?>>
+                <?php echo $text_results_nofilter; ?>
+                </option>
+                <option value="1" <?php echo $freterapido_results == 1 ? 'selected="selected"' : '' ?>>
+                <?php echo $text_results_cheaper; ?>
+                </option>
+                <option value="2" <?php echo $freterapido_results == 2 ? 'selected="selected"' : '' ?>>
+                <?php echo $text_results_faster; ?>
+                </option>
               </select>
             </div>
           </div>
@@ -107,18 +133,18 @@ sc
             </div>
           </div>
           <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-post-deadline"><?php echo $entry_post_deadline; ?></label>
-              <div class="col-sm-10">
-                <input type="number" min="0" name="freterapido_post_deadline" value="<?php echo $freterapido_post_deadline; ?>" placeholder="<?php echo $entry_post_deadline; ?>" id="input-post-deadline" class="form-control" />
-                <span><?php echo $help_post_deadline ?></span>
-              </div>
+            <label class="col-sm-2 control-label" for="input-post-deadline"><?php echo $entry_post_deadline; ?></label>
+            <div class="col-sm-10">
+              <input type="number" min="0" name="freterapido_post_deadline" value="<?php echo $freterapido_post_deadline; ?>" placeholder="<?php echo $entry_post_deadline; ?>" id="input-post-deadline" class="form-control" />
+              <span><?php echo $help_post_deadline ?></span>
+            </div>
           </div>
           <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-post-cost"><?php echo $entry_post_cost; ?></label>
-              <div class="col-sm-10">
-                <input type="number" min="0" step="0.1" name="freterapido_post_cost" value="<?php echo $freterapido_post_cost; ?>" placeholder="<?php echo $entry_post_cost; ?>" id="input-post-cost" class="form-control" />
-                <span><?php echo $help_post_cost ?></span>
-              </div>
+            <label class="col-sm-2 control-label" for="input-post-cost"><?php echo $entry_post_cost; ?></label>
+            <div class="col-sm-10">
+              <input type="number" min="0" step="0.1" name="freterapido_post_cost" value="<?php echo $freterapido_post_cost; ?>" placeholder="<?php echo $entry_post_cost; ?>" id="input-post-cost" class="form-control" />
+              <span><?php echo $help_post_cost ?></span>
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-contrato-codigo"><span data-toggle="tooltip" title="<?php echo $help_freterapido_token; ?>"><?php echo $entry_freterapido_token; ?></span></label>
@@ -126,20 +152,20 @@ sc
               <input type="text" name="freterapido_contrato_codigo" value="<?php echo $freterapido_contrato_codigo; ?>" placeholder="<?php echo $entry_freterapido_token_codigo; ?>" id="input-contrato-codigo" class="form-control" />
             </div>
           </div>
- 		     </form>
+        </form>
       </div>
     </div>
   </div>
 </div>
 <script type="text/javascript" src="view/javascript/maskedinput/jquery.maskedinput.min.js"></script>
 <script>
-  jQuery(function($){
-     $("#input-cnpj").mask("99.999.999/9999-99");
-     $("#input-postcode").mask("99.999-999");
-  });
+    jQuery(function($){
+        $("#input-cnpj").mask("99.999.999/9990-99");
+        $("#input-postcode").mask("99.999-999");
+    });
 
-  function logCNPJ () {
-    console.log($('#input-cnpj').val());
-  }
+    function logCNPJ () {
+        console.log($('#input-cnpj').val());
+    }
 </script>
 <?php echo $footer; ?>
