@@ -8,6 +8,8 @@ class ModelShippingFreteRapido extends Model
     private $volumes;
     private $correios;
 
+    private $manufacturing_deadline = 0;
+
     function getQuote($address) {
         $this->load->language('shipping/freterapido');
 
@@ -154,9 +156,9 @@ class ModelShippingFreteRapido extends Model
         $text_offer_part_two_singular = $this->language->get('text_offer_part_two_singular');
         $text_offer_part_two_plural = $this->language->get('text_offer_part_two_plural');
 
-        // Soma o prazo de postagem ao prazo de entrega da Transportadora
+        // Soma o prazo de postagem e fabricação ao prazo de entrega da Transportadora
         $deadline_for_posting = $this->config->get('freterapido_post_deadline') ?: 0;
-        $deadline = $carrier['prazo_entrega'] + $deadline_for_posting;
+        $deadline = $carrier['prazo_entrega'] + $deadline_for_posting + $this->manufacturing_deadline;
         $deadline_text = $deadline == 1 ? $text_offer_part_two_singular : $text_offer_part_two_plural;
 
         if (version_compare(VERSION, '2.2') < 0) {
@@ -226,6 +228,11 @@ class ModelShippingFreteRapido extends Model
             // Pega a primeira categoria do Frete Rápido encontrada
             $category = array_values($fr_categories)[0];
             $fr_category = $this->model_catalog_fr_category->getCategory($category['category_id']);
+
+            // O prazo de fabricação a ser somado no prazo de entrega é o do produto com maior prazo
+            if ($product_from_db['manufacturing_deadline'] > $this->manufacturing_deadline) {
+                $this->manufacturing_deadline = $product_from_db['manufacturing_deadline'];
+            }
 
             return array_merge($volume, ['tipo' => $fr_category['code']]);
         }, $products);

@@ -1,4 +1,4 @@
-CREATE TABLE oc_category_to_fr_category
+CREATE TABLE `oc_category_to_fr_category`
 (
     category_id INT(11) NOT NULL,
     fr_category_id INT(11) NOT NULL,
@@ -12,7 +12,11 @@ CREATE TABLE fr_category
     code SMALLINT(6) NOT NULL
 );
 
-INSERT INTO opencart.fr_category
+ALTER TABLE `oc_product`
+  ADD manufacturing_deadline INT(11) DEFAULT '0' NOT NULL
+  AFTER stock_status_id;
+
+INSERT INTO fr_category
 (fr_category_id, name, code) VALUES
   (1, 'Abrasivos', 1),
   (2, 'Adubos / Fertilizantes', 2),
