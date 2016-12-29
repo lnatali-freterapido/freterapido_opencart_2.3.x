@@ -1,5 +1,5 @@
 <?php
-class ControllerShippingfreterapido extends Controller {
+class ControllerShippingFreteRapido extends Controller {
     private $error = array();
 
     public function index() {
@@ -207,4 +207,3 @@ class ControllerShippingfreterapido extends Controller {
         return !$this->error;
     }
 }
-?>
