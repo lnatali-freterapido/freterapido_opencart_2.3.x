@@ -10,6 +10,25 @@ class ModelShippingFreteRapido extends Model
 
     private $manufacturing_deadline = 0;
 
+    /**
+     * Dimensões padrão em KG
+     *
+     * @var array
+     */
+    private $default_dimensions = [
+        'height' => 0.02,
+        'width' => 0.11,
+        'length' => 0.16,
+        'weight' => 0
+    ];
+
+    /**
+     * Será usada pelo produto que não tenha uma categoria do FR definida para ele
+     *
+     * @var int
+     */
+    private $default_fr_category = 999;
+
     function getQuote($address) {
         $this->load->language('shipping/freterapido');
 
@@ -96,7 +115,7 @@ class ModelShippingFreteRapido extends Model
         $response = $this->doRequest($this->api_url, $request);
 
         if ((int)$response['info']['http_code'] === 401) {
-            throw new InvalidArgumentException('Erro na autenticação. Verifique o token informado.', 401);
+            throw new InvalidArgumentException();
         }
 
         $result = $response['result'];
@@ -191,6 +210,10 @@ class ModelShippingFreteRapido extends Model
      * @return array
      */
     function getVolumes($products) {
+        function notNull($category) {
+            return $category !== null;
+        }
+
         return array_map(function ($product) {
             // Converte as medidas para o esperado pela API
             $length_class_id = $product['length_class_id'];
@@ -198,36 +221,34 @@ class ModelShippingFreteRapido extends Model
 
             $product_from_db = $this->model_catalog_product->getProduct($product['product_id']);
 
+            $height = $this->convertDimensionToMeters($length_class_id, $product['height']);
+            $width = $this->convertDimensionToMeters($length_class_id, $product['width']);
+            $length = $this->convertDimensionToMeters($length_class_id, $product['length']);
+            $weight = $this->convertWeightToKG($weight_class_id, $product['weight']);
+
             $volume = array(
                 'quantidade' => $product['quantity'],
-                'altura' => $this->convertDimensionToMeters($length_class_id, $product['height']),
-                'largura' => $this->convertDimensionToMeters($length_class_id, $product['width']),
-                'comprimento' => $this->convertDimensionToMeters($length_class_id, $product['length']),
-                'peso' => $this->convertWeightToKG($weight_class_id, $product['weight']),
+                'altura' => $height ?: $this->default_dimensions['height'],
+                'largura' => $width ?: $this->default_dimensions['width'],
+                'comprimento' => $length ?: $this->default_dimensions['length'],
+                'peso' => $weight ?: ($this->default_dimensions['weight'] * $product['quantity']),
                 'valor' => $product['total'],
                 'sku' => $product_from_db['sku']
             );
-
-            $categories = $this->model_catalog_product->getCategories($product['product_id']);
 
             $findFRCategory = function ($category) {
                 return $this->findCategory($category['category_id']);
             };
 
-            function notNull($category)
-            {
-                return $category !== null;
-            }
-
+            $categories = $this->model_catalog_product->getCategories($product['product_id']);
             $fr_categories = array_filter(array_map($findFRCategory, $categories), 'notNull');
 
-            if (count($fr_categories) === 0) {
-                return $volume;
-            }
+            $fr_category = ['code' => $this->default_fr_category];
 
-            // Pega a primeira categoria do Frete Rápido encontrada
-            $category = array_values($fr_categories)[0];
-            $fr_category = $this->model_catalog_fr_category->getCategory($category['category_id']);
+            // Pega a primeira categoria do Frete Rápido encontrada se tiver
+            if ($category = array_shift($fr_categories)) {
+                $fr_category = $this->model_catalog_fr_category->getCategory($category['category_id']);
+            }
 
             // O prazo de fabricação a ser somado no prazo de entrega é o do produto com maior prazo
             if ($product_from_db['manufacturing_deadline'] > $this->manufacturing_deadline) {
