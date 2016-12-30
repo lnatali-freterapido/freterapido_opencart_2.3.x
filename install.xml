@@ -25,6 +25,14 @@
         </operation>
         <operation>
             <search><![CDATA[
+            $data['entry_parent']
+            ]]></search>
+            <add position="before"><![CDATA[
+		$data['entry_fr_category'] = $this->language->get('entry_fr_category');
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
             $category_info = $this->model_catalog_category->getCategory($this->request->get['category_id']);
             ]]></search>
             <add position="after"><![CDATA[
