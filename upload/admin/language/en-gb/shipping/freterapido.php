@@ -32,8 +32,7 @@ $_['entry_post_deadline']   		 = 'Prazo adicional de envio/postagem';
 $_['entry_post_cost']      			 = 'Custo adicional de envio/postagem';
 $_['entry_sort_order']			     = 'Ordem';
 $_['entry_freterapido_token']    	 = 'Token de integração';
-$_['entry_msg_prazo']    			 = 'Mensagem que exibe prazo de entrega';
-$_['entry_freterapido_token_codigo'] = 'Token';
+$_['entry_freterapido_token_code']   = 'Token';
 
 // Help
 $_['help_freterapido_token'] = 'Este token é fornecido pelo Frete Rápido. Entre em contato para saber mais.';
@@ -45,3 +44,5 @@ $_['help_msg_prazo']    	 = '%s - Em média %d dia(s)';
 $_['error_permission']    = 'Atenção: Você não possui permissão para modificar o módulo Frete Rápido!';
 $_['error_postcode']      = 'Formato inválido de CEP!';
 $_['error_cnpj']      	  = 'Formato inválido de CNPJ!';
+$_['error_ie']            = 'Informe a Inscrição Estadual da loja';
+$_['error_token']         = 'Informe o seu Token de Integração';

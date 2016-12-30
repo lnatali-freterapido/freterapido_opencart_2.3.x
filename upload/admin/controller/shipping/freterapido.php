@@ -43,7 +43,7 @@ class ControllerShippingFreteRapido extends Controller {
 
         $data['entry_msg_prazo'] = $this->language->get('entry_msg_prazo');
         $data['entry_freterapido_token'] = $this->language->get('entry_freterapido_token');
-        $data['entry_freterapido_token_codigo'] = $this->language->get('entry_freterapido_token_codigo');
+        $data['entry_freterapido_token_code'] = $this->language->get('entry_freterapido_token_code');
         $data['entry_cost'] = $this->language->get('entry_cost');
         $data['entry_status'] = $this->language->get('entry_status');
         $data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -71,12 +71,6 @@ class ControllerShippingFreteRapido extends Controller {
             $data['error_warning'] = '';
         }
 
-        if (isset($this->error['postcode'])) {
-            $data['error_postcode'] = $this->error['postcode'];
-        } else {
-            $data['error_postcode'] = '';
-        }
-
         if (isset($this->error['cnpj'])) {
             $data['error_cnpj'] = $this->error['cnpj'];
         } else {
@@ -87,6 +81,18 @@ class ControllerShippingFreteRapido extends Controller {
             $data['error_ie'] = $this->error['ie'];
         } else {
             $data['error_ie'] = '';
+        }
+
+        if (isset($this->error['postcode'])) {
+            $data['error_postcode'] = $this->error['postcode'];
+        } else {
+            $data['error_postcode'] = '';
+        }
+
+        if (isset($this->error['token'])) {
+            $data['error_token'] = $this->error['token'];
+        } else {
+            $data['error_token'] = '';
         }
 
         $data['breadcrumbs'] = array();
@@ -182,10 +188,10 @@ class ControllerShippingFreteRapido extends Controller {
             $data['freterapido_msg_prazo'] = $this->config->get('freterapido_msg_prazo');
         }
 
-        if (isset($this->request->post['freterapido_contrato_codigo'])) {
-            $data['freterapido_contrato_codigo'] = $this->request->post['freterapido_contrato_codigo'];
+        if (isset($this->request->post['freterapido_token'])) {
+            $data['freterapido_token'] = $this->request->post['freterapido_token'];
         } else {
-            $data['freterapido_contrato_codigo'] = $this->config->get('freterapido_contrato_codigo');
+            $data['freterapido_token'] = $this->config->get('freterapido_token');
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -202,6 +208,22 @@ class ControllerShippingFreteRapido extends Controller {
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'shipping/freterapido')) {
             $this->error['warning'] = $this->language->get('error_permission');
+        }
+
+        if (!$this->request->post['freterapido_cnpj']) {
+            $this->error['cnpj'] = $this->language->get('error_cnpj');
+        }
+
+        if (!$this->request->post['freterapido_ie']) {
+            $this->error['ie'] = $this->language->get('error_ie');
+        }
+
+        if (!$this->request->post['freterapido_postcode']) {
+            $this->error['postcode'] = $this->language->get('error_postcode');
+        }
+
+        if (!$this->request->post['freterapido_token']) {
+            $this->error['token'] = $this->language->get('error_token');
         }
 
         return !$this->error;
