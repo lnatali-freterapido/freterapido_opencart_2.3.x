@@ -16,10 +16,10 @@ class ModelShippingFreteRapido extends Model
      * @var array
      */
     private $default_dimensions = [
-        'height' => 0.02,
-        'width' => 0.11,
-        'length' => 0.16,
-        'weight' => 0
+        'height' => 0.055,
+        'width' => 0.30,
+        'length' => 0.235,
+        'weight' => 1
     ];
 
     /**
@@ -179,6 +179,13 @@ class ModelShippingFreteRapido extends Model
         $deadline_for_posting = $this->config->get('freterapido_post_deadline') ?: 0;
         $deadline = $carrier['prazo_entrega'] + $deadline_for_posting + $this->manufacturing_deadline;
         $deadline_text = $deadline == 1 ? $text_offer_part_two_singular : $text_offer_part_two_plural;
+
+        $fr_currency = 'BRL';
+        $session_currency = $this->session->data['currency'];
+        if ($this->currency->has($fr_currency) && $fr_currency !== $session_currency) {
+            // Converte o preço da oferta (moeda BRL) retornada pela API para a moeda do cliente
+            $price = $this->currency->convert($price, $fr_currency, $session_currency);
+        }
 
         if (version_compare(VERSION, '2.2') < 0) {
             $price_formatted = $this->currency->format($price);
