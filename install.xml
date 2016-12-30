@@ -83,8 +83,15 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-fr-category"><?php echo $entry_fr_category; ?></label>
               <div class="col-sm-10">
-                <input type="text" name="fr_category" value="<?php echo $fr_category; ?>" placeholder="<?php echo $entry_fr_category; ?>" id="input-fr-category" class="form-control" />
-                <input type="hidden" name="fr_category_id" value="<?php echo $fr_category_id; ?>" />
+                <select name="fr_category_id" id="input-fr-category" class="form-control">
+                  <?php foreach($fr_categories as $key => $category) { ?>
+                    
+                    <option value="<?php echo $category['fr_category_id'] ?>"
+                      <?php
+                        if($category['fr_category_id'] == $fr_category_id) echo ' selected="selected"';
+                      ?>><?php echo $category['name']; ?></option>
+                  <?php } ?>
+                </select>
               </div>
             </div>
             ]]></add>
