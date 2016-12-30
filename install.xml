@@ -11,7 +11,8 @@
             public function add() {
             ]]></search>
             <add position="after"><![CDATA[
-            $this->load->language('catalog/fr_category');
+		$this->load->model('catalog/fr_category');
+		$this->load->language('catalog/fr_category');
             ]]></add>
         </operation>
         <operation>
@@ -19,8 +20,8 @@
 	        public function edit() {
             ]]></search>
             <add position="after"><![CDATA[
-            $this->load->model('catalog/fr_category');
-            $this->load->language('catalog/fr_category');
+		$this->load->model('catalog/fr_category');
+		$this->load->language('catalog/fr_category');
             ]]></add>
         </operation>
         <operation>
@@ -36,7 +37,7 @@
             $category_info = $this->model_catalog_category->getCategory($this->request->get['category_id']);
             ]]></search>
             <add position="after"><![CDATA[
-            $fr_category_info = $this->model_catalog_fr_category->getCategory($this->request->get['category_id']);
+			$fr_category_info = $this->model_catalog_fr_category->getCategory($this->request->get['category_id']);
             ]]></add>
         </operation>
         <operation>
@@ -46,7 +47,7 @@
             <add position="before"><![CDATA[
 		$data['fr_categories'] = $this->model_catalog_fr_category->getCategories();
 
-		if (isset($this->request->post['fr_category'])) {
+		if (isset($this->request->post['fr_category_id'])) {
 		    $data['fr_category_id'] = $this->request->post['fr_category_id'];
 		} elseif (!empty($fr_category_info)) {
 		    $data['fr_category_id'] = $fr_category_info['fr_category_id'];
@@ -62,7 +63,7 @@
             $category_id = $this->db->getLastId();
             ]]></search>
             <add position="after"><![CDATA[
-            $this->db->query("INSERT INTO `" . DB_PREFIX . "category_to_fr_category` SET `category_id` = '" . (int)$category_id . "', `fr_category_id` = '" . (int)$data['fr_category_id'] . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "category_to_fr_category` SET `category_id` = '" . (int)$category_id . "', `fr_category_id` = '" . (int)$data['fr_category_id'] . "'");
             ]]></add>
         </operation>
         <operation>
@@ -70,7 +71,9 @@
             $this->db->query("UPDATE " . DB_PREFIX . "category SET parent_id = '" . (int)$data['parent_id'] . "', `top` = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', `column` = '" . (int)$data['column'] . "', sort_order = '" . (int)$data['sort_order'] . "', status = '" . (int)$data['status'] . "', date_modified = NOW() WHERE category_id = '" . (int)$category_id . "'");
             ]]></search>
             <add position="before"><![CDATA[
-            $this->db->query("UPDATE `" . DB_PREFIX . "category_to_fr_category` SET `fr_category_id` = '" . (int)$data['fr_category_id'] . "' WHERE `category_id` = '" . (int)$category_id . "'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "category_to_fr_category WHERE category_id = '" . (int)$category_id . "'");
+
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "category_to_fr_category` SET `category_id` = '" . (int)$category_id . "', `fr_category_id` = '" . (int)$data['fr_category_id'] . "'");
             ]]></add>
         </operation>
     </file>
