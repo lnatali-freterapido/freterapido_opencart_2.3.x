@@ -16,10 +16,10 @@ class ModelShippingFreteRapido extends Model
      * @var array
      */
     private $default_dimensions = [
-        'height' => 0.02,
-        'width' => 0.11,
-        'length' => 0.16,
-        'weight' => 0
+        'height' => 0.055,
+        'width' => 0.30,
+        'length' => 0.235,
+        'weight' => 1
     ];
 
     /**
