@@ -44,21 +44,15 @@
             if (isset($this->request->post['path'])) {
             ]]></search>
             <add position="before"><![CDATA[
-            if (isset($this->request->post['fr_category'])) {
-                $data['fr_category'] = $this->request->post['fr_category'];
-            } elseif (!empty($fr_category_info)) {
-                $data['fr_category'] = $fr_category_info['fr_category'];
-            } else {
-                $data['fr_category'] = '';
-            }
+		$data['fr_categories'] = $this->model_catalog_fr_category->getCategories();
 
-            if (isset($this->request->post['fr_category'])) {
-                $data['fr_category_id'] = $this->request->post['fr_category_id'];
-            } elseif (!empty($fr_category_info)) {
-                $data['fr_category_id'] = $fr_category_info['fr_category_id'];
-            } else {
-                $data['fr_category_id'] = '';
-            }
+		if (isset($this->request->post['fr_category'])) {
+		    $data['fr_category_id'] = $this->request->post['fr_category_id'];
+		} elseif (!empty($fr_category_info)) {
+		    $data['fr_category_id'] = $fr_category_info['fr_category_id'];
+		} else {
+		    $data['fr_category_id'] = '';
+		}
             ]]></add>
         </operation>
     </file>
@@ -93,38 +87,6 @@
                 <input type="hidden" name="fr_category_id" value="<?php echo $fr_category_id; ?>" />
               </div>
             </div>
-            ]]></add>
-        </operation>
-        <operation>
-            <search><![CDATA[
-            $('input[name=\'path\']').autocomplete({
-            ]]></search>
-            <add position="before"><![CDATA[
-            $('input[name=\'fr_category\']').autocomplete({
-                'source': function(request, response) {
-                    $.ajax({
-                        url: 'index.php?route=catalog/fr_category/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
-                        dataType: 'json',
-                        success: function(json) {
-                            json.unshift({
-                                fr_category_id: 0,
-                                name: '<?php echo $text_none; ?>'
-                            });
-
-                            response($.map(json, function(item) {
-                                return {
-                                    label: item['name'],
-                                    value: item['fr_category_id']
-                                }
-                            }));
-                        }
-                    });
-                },
-                'select': function(item) {
-                    $('input[name=\'fr_category\']').val(item['label']);
-                    $('input[name=\'fr_category_id\']').val(item['value']);
-                }
-            });
             ]]></add>
         </operation>
     </file>
