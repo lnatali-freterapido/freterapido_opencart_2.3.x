@@ -67,6 +67,9 @@
             <label class="col-sm-2 control-label" for="input-ie"><?php echo $entry_ie; ?></label>
             <div class="col-sm-10">
               <input type="text" name="freterapido_ie" value="<?php echo $freterapido_ie; ?>" placeholder="<?php echo $entry_ie; ?>" id="input-ie" class="form-control" />
+              <?php if ($error_ie) { ?>
+              <div class="text-danger"><?php echo $error_ie; ?></div>
+              <?php } ?>
             </div>
           </div>
           <div class="form-group">
@@ -150,6 +153,9 @@
             <label class="col-sm-2 control-label" for="input-contrato-codigo"><span data-toggle="tooltip" title="<?php echo $help_freterapido_token; ?>"><?php echo $entry_freterapido_token; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="freterapido_contrato_codigo" value="<?php echo $freterapido_contrato_codigo; ?>" placeholder="<?php echo $entry_freterapido_token_codigo; ?>" id="input-contrato-codigo" class="form-control" />
+              <?php if ($error_token) { ?>
+              <div class="text-danger"><?php echo $error_token; ?></div>
+              <?php } ?>
             </div>
           </div>
         </form>
