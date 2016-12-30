@@ -45,3 +45,5 @@ $_['help_msg_prazo']    	 = '%s - Em média %d dia(s)';
 $_['error_permission']    = 'Atenção: Você não possui permissão para modificar o módulo Frete Rápido!';
 $_['error_postcode']      = 'Formato inválido de CEP!';
 $_['error_cnpj']      	  = 'Formato inválido de CNPJ!';
+$_['error_ie']            = 'Informe a Inscrição Estadual da loja';
+$_['error_token']         = 'Informe o seu Token de Integração';
