@@ -150,9 +150,9 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-contrato-codigo"><span data-toggle="tooltip" title="<?php echo $help_freterapido_token; ?>"><?php echo $entry_freterapido_token; ?></span></label>
+            <label class="col-sm-2 control-label" for="input-token"><span data-toggle="tooltip" title="<?php echo $help_freterapido_token; ?>"><?php echo $entry_freterapido_token; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="freterapido_contrato_codigo" value="<?php echo $freterapido_contrato_codigo; ?>" placeholder="<?php echo $entry_freterapido_token_codigo; ?>" id="input-contrato-codigo" class="form-control" />
+              <input type="text" name="freterapido_token" value="<?php echo $freterapido_token; ?>" placeholder="<?php echo $entry_freterapido_token_code; ?>" id="input-token" class="form-control" />
               <?php if ($error_token) { ?>
               <div class="text-danger"><?php echo $error_token; ?></div>
               <?php } ?>

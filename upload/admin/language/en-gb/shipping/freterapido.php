@@ -32,8 +32,7 @@ $_['entry_post_deadline']   		 = 'Prazo adicional de envio/postagem';
 $_['entry_post_cost']      			 = 'Custo adicional de envio/postagem';
 $_['entry_sort_order']			     = 'Ordem';
 $_['entry_freterapido_token']    	 = 'Token de integração';
-$_['entry_msg_prazo']    			 = 'Mensagem que exibe prazo de entrega';
-$_['entry_freterapido_token_codigo'] = 'Token';
+$_['entry_freterapido_token_code']   = 'Token';
 
 // Help
 $_['help_freterapido_token'] = 'Este token é fornecido pelo Frete Rápido. Entre em contato para saber mais.';

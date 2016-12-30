@@ -144,7 +144,7 @@ class ModelShippingFreteRapido extends Model
 
             'correios' => $this->correios,
 
-            'token' => $this->config->get('freterapido_contrato_codigo')
+            'token' => $this->config->get('freterapido_token')
         );
 
         // Adiciona o filtro se tiver
