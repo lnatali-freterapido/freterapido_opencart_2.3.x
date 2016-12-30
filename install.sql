@@ -1,20 +1,55 @@
-CREATE TABLE `oc_category_to_fr_category`
+-- Cria a tabela que relaciona as categorias do OpenCart com as do Frete Rápido
+
+CREATE IF NOT EXISTS TABLE `oc_category_to_fr_category`
 (
     category_id INT(11) NOT NULL,
     fr_category_id INT(11) NOT NULL,
     CONSTRAINT `PRIMARY` PRIMARY KEY (category_id, fr_category_id)
 );
 
-CREATE TABLE fr_category
+
+-- Adiciona a coluna 'manufacturing_deadline' na tabela *_product se não existe
+
+DELIMITER $$
+CREATE PROCEDURE addManufacturingDeadline()
+  BEGIN
+    IF NOT EXISTS(
+        SELECT *
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_NAME LIKE '%_product'
+              AND COLUMN_NAME = 'manufacturing_deadline'
+    )
+    THEN
+      ALTER TABLE `oc_product`
+        ADD manufacturing_deadline INT(11) DEFAULT '0' NOT NULL
+        AFTER stock_status_id;
+    END IF;
+  END $$
+DELIMITER ;
+
+-- Executa a procedure
+
+CALL addManufacturingDeadline();
+
+-- Exclui a producedure
+
+DROP PROCEDURE addManufacturingDeadline;
+
+
+-- Cria a tabela de categorias do Frete Rápido
+
+CREATE TABLE IF NOT EXISTS fr_category
 (
-    fr_category_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    code SMALLINT(6) NOT NULL
+  fr_category_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name           VARCHAR(255)        NOT NULL,
+  code           SMALLINT(6)         NOT NULL
 );
 
-ALTER TABLE `oc_product`
-  ADD manufacturing_deadline INT(11) DEFAULT '0' NOT NULL
-  AFTER stock_status_id;
+-- Limpa os registros da tabela de categorias
+
+TRUNCATE TABLE fr_category;
+
+-- Insere novamente as categorias do Frete Rápido
 
 INSERT INTO fr_category
 (fr_category_id, name, code) VALUES
