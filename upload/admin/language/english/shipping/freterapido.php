@@ -38,7 +38,6 @@ $_['entry_freterapido_token_code']   = 'Token';
 $_['help_freterapido_token'] = 'Este token é fornecido pelo Frete Rápido. Entre em contato para saber mais.';
 $_['help_post_deadline'] 	 = 'Em dias';
 $_['help_post_cost'] 		 = 'Em R$';
-$_['help_msg_prazo']    	 = '%s - Em média %d dia(s)';
 
 // Error
 $_['error_permission']    = 'Atenção: Você não possui permissão para modificar o módulo Frete Rápido!';

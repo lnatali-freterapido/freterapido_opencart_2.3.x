@@ -41,7 +41,6 @@ class ControllerShippingFreteRapido extends Controller {
         $data['text_select_all'] = $this->language->get('text_select_all');
         $data['text_unselect_all'] = $this->language->get('text_unselect_all');
 
-        $data['entry_msg_prazo'] = $this->language->get('entry_msg_prazo');
         $data['entry_freterapido_token'] = $this->language->get('entry_freterapido_token');
         $data['entry_freterapido_token_code'] = $this->language->get('entry_freterapido_token_code');
         $data['entry_cost'] = $this->language->get('entry_cost');
@@ -56,7 +55,6 @@ class ControllerShippingFreteRapido extends Controller {
         $data['entry_post_cost']= $this->language->get('entry_post_cost');
 
         $data['help_freterapido_token'] = $this->language->get('help_freterapido_token');
-        $data['help_msg_prazo'] = $this->language->get('help_msg_prazo');
         $data['help_post_deadline'] = $this->language->get('help_post_deadline');
         $data['help_post_cost'] = $this->language->get('help_post_cost');
 
