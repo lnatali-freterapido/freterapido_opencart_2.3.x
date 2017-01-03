@@ -26,7 +26,7 @@
         </operation>
         <operation>
             <search><![CDATA[
-              $data['entry_parent']
+              ['entry_parent']
             ]]></search>
             <add position="before"><![CDATA[
               $data['entry_fr_category'] = $this->language->get('entry_fr_category');
@@ -34,7 +34,7 @@
         </operation>
         <operation>
             <search><![CDATA[
-              $category_info = $this->model_catalog_category->getCategory($this->request->get['category_id']);
+              $this->model_catalog_category->getCategory($this->request->get['category_id']);
             ]]></search>
             <add position="after"><![CDATA[
               $fr_category_info = $this->model_catalog_fr_category->getCategory($this->request->get['category_id']);
@@ -42,18 +42,18 @@
         </operation>
         <operation>
             <search><![CDATA[
-              if (isset($this->request->post['path'])) {
+              isset($this->request->post['path'])
             ]]></search>
             <add position="before"><![CDATA[
-            $data['fr_categories'] = $this->model_catalog_fr_category->getCategories();
+              $data['fr_categories'] = $this->model_catalog_fr_category->getCategories();
 
-            if (isset($this->request->post['fr_category_id'])) {
-                $data['fr_category_id'] = $this->request->post['fr_category_id'];
-            } elseif (!empty($fr_category_info)) {
-                $data['fr_category_id'] = $fr_category_info['fr_category_id'];
-            } else {
-                $data['fr_category_id'] = '';
-            }
+              if (isset($this->request->post['fr_category_id'])) {
+                  $data['fr_category_id'] = $this->request->post['fr_category_id'];
+              } elseif (!empty($fr_category_info)) {
+                  $data['fr_category_id'] = $fr_category_info['fr_category_id'];
+              } else {
+                  $data['fr_category_id'] = '';
+              }
             ]]></add>
         </operation>
     </file>
@@ -79,7 +79,7 @@
     <file path="admin/view/template/catalog/category_form.tpl">
         <operation>
             <search><![CDATA[
-              <div class="tab-pane" id="tab-data">
+              id="tab-data"
             ]]></search>
             <add position="after"><![CDATA[
               <div class="form-group required">
@@ -142,7 +142,7 @@
     <file path="admin/view/template/catalog/product_form.tpl">
         <operation>
             <search><![CDATA[
-              <label class="col-sm-2 control-label"><?php echo $entry_shipping; ?></label>
+              <?php echo $entry_shipping; ?>
             ]]></search>
             <add position="before" offset="1"><![CDATA[
               <div class="form-group">
