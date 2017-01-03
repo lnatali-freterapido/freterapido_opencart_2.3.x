@@ -210,10 +210,6 @@ class ModelShippingFreteRapido extends Model
      * @return array
      */
     function getVolumes($products) {
-        function notNull($category) {
-            return $category !== null;
-        }
-
         return array_map(function ($product) {
             // Converte as medidas para o esperado pela API
             $length_class_id = $product['length_class_id'];
@@ -240,8 +236,12 @@ class ModelShippingFreteRapido extends Model
                 return $this->findCategory($category['category_id']);
             };
 
+            $notNull = function ($category) {
+                return $category !== null;
+            };
+
             $categories = $this->model_catalog_product->getCategories($product['product_id']);
-            $fr_categories = array_filter(array_map($findFRCategory, $categories), 'notNull');
+            $fr_categories = array_filter(array_map($findFRCategory, $categories), $notNull);
 
             $fr_category = ['code' => $this->default_fr_category];
 
