@@ -232,7 +232,11 @@ class ControllerShippingFreteRapido extends Controller {
 
         $data['action'] = $this->url->link('shipping/freterapido', 'token=' . $this->session->data['token'], 'SSL');
 
-        $data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=shipping', true);
+        if(version_compare(VERSION, '2.2.0.0', '>')) {
+            $data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=shipping', true);
+        } else {
+            $data['cancel'] = $this->url->link('extension/shipping', 'token=' . $this->session->data['token'], true);
+        }
 
         if (isset($this->request->post['freterapido_status'])) {
             $data['freterapido_status'] = $this->request->post['freterapido_status'];
