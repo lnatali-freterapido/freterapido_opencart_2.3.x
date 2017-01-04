@@ -77,9 +77,9 @@
         </operation>
         <operation>
             <search><![CDATA[
-              $this->db->query("DELETE FROM " . DB_PREFIX . "url_alias WHERE query = 'category_id=" . (int)$category_id . "'");
+              public function deleteCategory($category_id)
             ]]></search>
-            <add position="after"><![CDATA[
+            <add position="after" offset="1"><![CDATA[
               $this->db->query("DELETE FROM " . DB_PREFIX . "category_to_fr_category WHERE category_id = '" . (int)$category_id . "'");
             ]]></add>
         </operation>
@@ -111,7 +111,7 @@
             ]]></add>
         </operation>
     </file>
-    <file path="admin/language/en-gb/catalog/product.php">
+    <file path="admin/language/*/catalog/product.php">
         <operation>
             <search><![CDATA[
               $_['entry_stock_status']
