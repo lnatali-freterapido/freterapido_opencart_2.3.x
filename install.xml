@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-    <name>Categoria Frete Rápido</name>
-    <code>categoria-freterapido</code>
-    <version>1.0</version>
+    <name>Frete Rápido</name>
+    <code>freterapido</code>
+    <version>1.0.0</version>
     <author>Frete Rápido</author>
     <link>https://freterapido.com/</link>
     <file path="admin/controller/catalog/category.php">
