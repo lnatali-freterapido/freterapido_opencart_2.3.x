@@ -44,7 +44,7 @@ class ModelExtensionShippingFreteRapido extends Model
             'code' => 'freterapido',
             'title' => $this->language->get('text_title'),
             'quote' => array(),
-            'sort_order' => 1,
+            'sort_order' => $this->config->get('freterapido_sort_order'),
             'error' => false
         );
 

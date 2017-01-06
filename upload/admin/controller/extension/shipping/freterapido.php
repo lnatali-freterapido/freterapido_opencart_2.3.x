@@ -188,6 +188,12 @@ class ControllerExtensionShippingFreteRapido  extends Controller {
             $data['freterapido_token'] = $this->config->get('freterapido_token');
         }
 
+        if (isset($this->request->post['freterapido_sort_order'])) {
+            $data['freterapido_sort_order'] = $this->request->post['freterapido_sort_order'];
+        } else {
+            $data['freterapido_sort_order'] = $this->config->get('freterapido_sort_order');
+        }
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
