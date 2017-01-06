@@ -197,11 +197,8 @@ class ModelExtensionShippingFreteRapido extends Model
         $deadline = $carrier['prazo_entrega'] + $deadline_for_posting + $this->manufacturing_deadline;
         $deadline_text = $deadline == 1 ? $text_offer_part_two_singular : $text_offer_part_two_plural;
 
-        if (version_compare(VERSION, '2.2') < 0) {
-            $price_formatted = $this->currency->format($price);
-        } else {
-            $price_formatted = $this->currency->format($price, $this->session->data['currency']);
-        }
+        // Coloca o símbolo da moeda do usuário, mas não converte o valor
+        $price_formatted = $this->currency->format($price, $this->session->data['currency'], 1);
 
         $text = "$text_offer_part_one $deadline $deadline_text - $price_formatted";
 
