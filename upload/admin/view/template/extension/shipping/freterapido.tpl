@@ -57,7 +57,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-cnpj"><?php echo $entry_cnpj; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="freterapido_cnpj" value="<?php echo $freterapido_cnpj; ?>" placeholder="<?php echo $entry_cnpj; ?>" id="input-cnpj" class="form-control" onblur="logCNPJ();" />
+              <input type="text" name="freterapido_cnpj" value="<?php echo $freterapido_cnpj; ?>" placeholder="<?php echo $entry_cnpj; ?>" id="input-cnpj" class="form-control" />
               <?php if ($error_cnpj) { ?>
               <div class="text-danger"><?php echo $error_cnpj; ?></div>
               <?php } ?>
@@ -192,9 +192,5 @@
         $("#input-cnpj").mask("99.999.999/9999-99");
         $("#input-postcode").mask("99.999-999");
     });
-
-    function logCNPJ () {
-        console.log($('#input-cnpj').val());
-    }
 </script>
 <?php echo $footer; ?>
