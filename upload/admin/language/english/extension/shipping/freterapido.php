@@ -33,11 +33,17 @@ $_['entry_post_cost']      			 = 'Custo adicional de envio/postagem';
 $_['entry_sort_order']			     = 'Ordem';
 $_['entry_freterapido_token']    	 = 'Token de integração';
 $_['entry_freterapido_token_code']   = 'Token';
+$_['entry_dimension']                = 'Dimensões padrões (C x L x A):';
+$_['entry_length']                   = 'Comprimento';
+$_['entry_width']                    = 'Largura';
+$_['entry_height']                   = 'Altura';
 
 // Help
 $_['help_freterapido_token'] = 'Este token é fornecido pelo Frete Rápido. Entre em contato para saber mais.';
 $_['help_post_deadline'] 	 = 'Em dias';
 $_['help_post_cost'] 		 = 'Em R$';
+$_['help_dimension']         = 'Serão usadas caso as dimensões dos produtos não tenham sido informadas';
+$_['help_dimension_unit']    = 'Em metros';
 
 // Error
 $_['error_permission']    = 'Atenção: Você não possui permissão para modificar o módulo Frete Rápido!';

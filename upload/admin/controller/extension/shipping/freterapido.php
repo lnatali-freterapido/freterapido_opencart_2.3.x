@@ -49,10 +49,16 @@ class ControllerExtensionShippingFreteRapido  extends Controller {
         $data['entry_limit']= $this->language->get('entry_limit');
         $data['entry_post_deadline']= $this->language->get('entry_post_deadline');
         $data['entry_post_cost']= $this->language->get('entry_post_cost');
+        $data['entry_dimension']= $this->language->get('entry_dimension');
+        $data['entry_length']= $this->language->get('entry_length');
+        $data['entry_width']= $this->language->get('entry_width');
+        $data['entry_height']= $this->language->get('entry_height');
 
         $data['help_freterapido_token'] = $this->language->get('help_freterapido_token');
         $data['help_post_deadline'] = $this->language->get('help_post_deadline');
         $data['help_post_cost'] = $this->language->get('help_post_cost');
+        $data['help_dimension'] = $this->language->get('help_dimension');
+        $data['help_dimension_unit'] = $this->language->get('help_dimension_unit');
 
         $data['button_save'] = $this->language->get('button_save');
         $data['button_cancel'] = $this->language->get('button_cancel');
@@ -180,6 +186,24 @@ class ControllerExtensionShippingFreteRapido  extends Controller {
             $data['freterapido_msg_prazo'] = $this->request->post['freterapido_msg_prazo'];
         } else {
             $data['freterapido_msg_prazo'] = $this->config->get('freterapido_msg_prazo');
+        }
+
+        if (isset($this->request->post['freterapido_length'])) {
+            $data['freterapido_length'] = $this->request->post['freterapido_length'];
+        } else {
+            $data['freterapido_length'] = $this->config->get('freterapido_length');
+        }
+
+        if (isset($this->request->post['freterapido_width'])) {
+            $data['freterapido_width'] = $this->request->post['freterapido_width'];
+        } else {
+            $data['freterapido_width'] = $this->config->get('freterapido_width');
+        }
+
+        if (isset($this->request->post['freterapido_height'])) {
+            $data['freterapido_height'] = $this->request->post['freterapido_height'];
+        } else {
+            $data['freterapido_height'] = $this->config->get('freterapido_height');
         }
 
         if (isset($this->request->post['freterapido_token'])) {

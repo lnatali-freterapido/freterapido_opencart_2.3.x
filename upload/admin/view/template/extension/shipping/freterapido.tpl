@@ -149,6 +149,23 @@
               <span><?php echo $help_post_cost ?></span>
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-length"><span data-toggle="tooltip" title="<?php echo $help_dimension; ?>"><?php echo $entry_dimension; ?></span></label>
+            <div class="col-sm-10">
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="text" name="freterapido_length" value="<?php echo $freterapido_length; ?>" placeholder="<?php echo $entry_length; ?>" id="input-length" class="form-control" />
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" name="freterapido_width" value="<?php echo $freterapido_width; ?>" placeholder="<?php echo $entry_width; ?>" id="input-width" class="form-control" />
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" name="freterapido_height" value="<?php echo $freterapido_height; ?>" placeholder="<?php echo $entry_height; ?>" id="input-height" class="form-control" />
+                </div>
+              </div>
+              <span><?php echo $help_dimension_unit ?></span>
+            </div>
+          </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-token"><span data-toggle="tooltip" title="<?php echo $help_freterapido_token; ?>"><?php echo $entry_freterapido_token; ?></span></label>
             <div class="col-sm-10">
