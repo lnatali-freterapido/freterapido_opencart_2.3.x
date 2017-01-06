@@ -75,6 +75,8 @@ class ModelExtensionShippingFreteRapido extends Model
      * @param $address
      */
     function setup($address) {
+        $this->configureDimensions();
+
         $this->load->model('catalog/product');
         $this->load->model('catalog/category');
         $this->load->model('catalog/fr_category');
@@ -85,6 +87,21 @@ class ModelExtensionShippingFreteRapido extends Model
         $this->sender = $this->getSender();
         $this->receiver = $this->getReceiver($address);
         $this->correios = $this->getCorreiosConfig();
+    }
+
+    /**
+     * Define quais serão as dimensões padrão, a definida pela loja ou padrão ($default_dimensions)
+     */
+    function configureDimensions() {
+        foreach ($this->default_dimensions as $dimension => $value) {
+            $new_value = (float) $this->config->get("freterapido_{$dimension}");
+
+            if ($new_value < $value) {
+                continue;
+            }
+
+            $this->default_dimensions[$dimension] = $new_value;
+        }
     }
 
     /**
