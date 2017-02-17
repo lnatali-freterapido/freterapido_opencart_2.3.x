@@ -38,6 +38,7 @@ $_['entry_width']                    = 'Largura';
 $_['entry_height']                   = 'Altura';
 
 // Help
+$_['help_cnpj']                  = 'Informe o mesmo CNPJ cadastrado no Frete Rápido';
 $_['help_freterapido_token']     = 'Este token é fornecido pelo Frete Rápido. Entre em contato para saber mais.';
 $_['help_post_deadline'] 	     = 'Em dias';
 $_['help_post_cost'] 		     = 'Em R$';

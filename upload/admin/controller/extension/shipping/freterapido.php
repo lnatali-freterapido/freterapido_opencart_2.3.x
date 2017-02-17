@@ -49,6 +49,7 @@ class ControllerExtensionShippingFreteRapido  extends Controller {
         $data['entry_width']= $this->language->get('entry_width');
         $data['entry_height']= $this->language->get('entry_height');
 
+        $data['help_cnpj'] = $this->language->get('help_cnpj');
         $data['help_freterapido_token'] = $this->language->get('help_freterapido_token');
         $data['help_post_deadline'] = $this->language->get('help_post_deadline');
         $data['help_post_cost'] = $this->language->get('help_post_cost');

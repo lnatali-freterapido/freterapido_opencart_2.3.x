@@ -55,7 +55,7 @@
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-cnpj"><?php echo $entry_cnpj; ?></label>
+            <label class="col-sm-2 control-label" for="input-cnpj"><span data-toggle="tooltip" title="<?php echo $help_cnpj; ?>"><?php echo $entry_cnpj; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="freterapido_cnpj" value="<?php echo $freterapido_cnpj; ?>" placeholder="<?php echo $entry_cnpj; ?>" id="input-cnpj" class="form-control" />
               <?php if ($error_cnpj) { ?>

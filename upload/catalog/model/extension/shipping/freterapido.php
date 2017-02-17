@@ -1,25 +1,187 @@
 <?php
-class ModelExtensionShippingFreteRapido extends Model
-{
-    private $api_url = 'http://api-externa.freterapido.app/embarcador/v1/quote-simulator';
+class FreterapidoHttp {
+    static function do_request($url, $params = array(), $method = 'POST') {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
+        $data_string = json_encode($params);
+
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($data_string)
+        ));
+
+        $result = curl_exec($ch);
+        $info = curl_getinfo($ch);
+
+        curl_close($ch);
+
+        return ['info' => $info, 'result' => json_decode($result, true)];
+    }
+}
+
+class FreterapidoShipping {
+    private $config;
     private $sender;
     private $receiver;
+    private $dispatcher;
     private $volumes;
 
-    private $manufacturing_deadline = 0;
-
-    /**
-     * Dimensões padrão em KG
-     *
-     * @var array
-     */
     private $default_dimensions = [
         'height' => 0.5,
         'width' => 0.5,
         'length' => 0.5,
         'weight' => 1
     ];
+
+    public function __construct(array $config) {
+        $this->config = array_merge([
+            'tipo_cobranca' => 1,
+            'tipo_frete' => 1,
+            'ecommerce' => true,
+        ], $config);
+    }
+
+    public function set_default_dimensions(array $dimensions) {
+        foreach ($this->default_dimensions as $dimension => $value) {
+            if (!isset($dimensions[$dimension])) {
+                continue;
+            }
+
+            $new_value = (float) $dimensions[$dimension];
+
+            if ($new_value < $value) {
+                continue;
+            }
+
+            $this->default_dimensions[$dimension] = $new_value;
+        }
+
+        return $this;
+    }
+
+    public function add_sender(array $sender) {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    public function add_receiver(array $receiver) {
+        $this->receiver = $receiver;
+
+        return $this;
+    }
+
+    public function add_dispatcher(array $dispatcher) {
+        $this->dispatcher = $dispatcher;
+
+        return $this;
+    }
+
+    public function add_volumes(array $volumes) {
+        $this->volumes = array_map(function ($volume) {
+            if (!$volume['altura']) {
+                $volume['altura'] = $this->default_dimensions['height'];
+            }
+
+            if (!$volume['largura']) {
+                $volume['largura'] = $this->default_dimensions['width'];
+            }
+
+            if (!$volume['comprimento']) {
+                $volume['comprimento'] = $this->default_dimensions['length'];
+            }
+
+            if (!$volume['peso']) {
+                $volume['peso'] = $this->default_dimensions['weight'] * $volume['quantidade'];
+            }
+
+            return $volume;
+        }, $volumes);
+
+        return $this;
+    }
+
+    /**
+     * @param int $filter
+     * @return $this
+     */
+    public function set_filter($filter) {
+        if ($filter) {
+            $this->config['filtro'] = $filter;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param int $limit
+     * @return $this
+     */
+    public function set_limit($limit) {
+        if ($limit) {
+            $this->config['limite'] = $limit;
+        }
+
+        return $this;
+    }
+
+    private function format_request() {
+        $request = array();
+
+        if ($this->dispatcher) {
+            $request['expedidor'] = $this->dispatcher;
+        }
+
+        return array_merge(
+            $request,
+            array(
+                'remetente' => $this->sender,
+                'destinatario' => $this->receiver,
+                'volumes' => $this->volumes,
+                'tipo_cobranca' => 1,
+                'tipo_frete' => 1,
+                'ecommerce' => true,
+            ),
+            $this->config
+        );
+    }
+
+    public function get_quote() {
+        $response = FreterapidoHttp::do_request(FR_API_URL . 'embarcador/v1/quote-simulator', $this->format_request());
+
+        if ((int)$response['info']['http_code'] === 401) {
+            throw new InvalidArgumentException();
+        }
+
+        $result = $response['result'];
+
+        if (!$result || !isset($result['transportadoras']) || count($result['transportadoras']) === 0) {
+            throw new UnexpectedValueException();
+        }
+
+        $result['transportadoras'] = array_map(function ($carrier) {
+            if (strtolower($carrier['nome']) === 'correios') {
+                $carrier['nome'] .= " - {$carrier['servico']}";
+            }
+
+            return $carrier;
+        }, $result['transportadoras']);
+
+        return $result;
+    }
+}
+
+class ModelExtensionShippingFreteRapido extends Model
+{
+    private $sender;
+    private $receiver;
+    private $volumes;
+
+    private $manufacturing_deadline = 0;
 
     /**
      * Será usada pelo produto que não tenha uma categoria do FR definida para ele
@@ -29,6 +191,8 @@ class ModelExtensionShippingFreteRapido extends Model
     private $default_fr_category = 999;
 
     function getQuote($address) {
+        define('FR_API_URL', 'http://api-externa.freterapido.app/');
+
         $this->load->language('extension/shipping/freterapido');
 
         $method_data = array();
@@ -48,7 +212,26 @@ class ModelExtensionShippingFreteRapido extends Model
         );
 
         try {
-            $response = $this->callApi();
+            $shipping = new FreterapidoShipping([
+                'token' => $this->config->get('freterapido_token'),
+                'codigo_plataforma' => 'opencart2',
+                'custo_adicional' => $this->config->get('freterapido_post_cost') ?: 0,
+                'prazo_adicional' => $this->config->get('freterapido_post_deadline') ?: 0,
+                'percentual_adicional' => $this->config->get('freterapido_additional_percentage') / 100,
+            ]);
+
+            $response = $shipping
+                ->add_receiver($this->receiver)
+                ->add_sender($this->sender)
+                ->set_default_dimensions([
+                    'length' => $this->config->get('freterapido_length'),
+                    'width' => $this->config->get('freterapido_width'),
+                    'height' => $this->config->get('freterapido_height'),
+                ])
+                ->add_volumes($this->volumes)
+                ->set_filter($this->config->get('freterapido_results'))
+                ->set_limit($this->config->get('freterapido_limit'))
+                ->get_quote();
         } catch (InvalidArgumentException $invalid_argument) {
             // Quando for erro na autenticação, mostra no "cart"
             $method_data['error'] = $this->language->get('text_error_auth_api');
@@ -74,8 +257,6 @@ class ModelExtensionShippingFreteRapido extends Model
      * @param $address
      */
     function setup($address) {
-        $this->configureDimensions();
-
         $this->load->model('catalog/product');
         $this->load->model('catalog/category');
         $this->load->model('catalog/fr_category');
@@ -85,21 +266,6 @@ class ModelExtensionShippingFreteRapido extends Model
         $this->volumes = $this->getVolumes($products);
         $this->sender = $this->getSender();
         $this->receiver = $this->getReceiver($address);
-    }
-
-    /**
-     * Define quais serão as dimensões padrão, a definida pela loja ou padrão ($default_dimensions)
-     */
-    function configureDimensions() {
-        foreach ($this->default_dimensions as $dimension => $value) {
-            $new_value = (float) $this->config->get("freterapido_{$dimension}");
-
-            if ($new_value < $value) {
-                continue;
-            }
-
-            $this->default_dimensions[$dimension] = $new_value;
-        }
     }
 
     /**
@@ -117,63 +283,6 @@ class ModelExtensionShippingFreteRapido extends Model
     }
 
     /**
-     * Faz a chamada na API de simulação
-     *
-     * @return mixed
-     * @throws HttpInvalidParamException
-     * @throws HttpResponseException
-     */
-    function callApi() {
-        $request = $this->prepareRequest();
-
-        // Faz a requisição na API
-        $response = $this->doRequest($this->api_url, $request);
-
-        if ((int)$response['info']['http_code'] === 401) {
-            throw new InvalidArgumentException();
-        }
-
-        $result = $response['result'];
-
-        if (!$result || !isset($result['transportadoras']) || count($result['transportadoras']) === 0) {
-            throw new UnexpectedValueException();
-        }
-
-        return $result;
-    }
-
-    /**
-     * Formata os dados a serem enviados
-     *
-     * @return array
-     */
-    function prepareRequest() {
-        $request = array(
-            'remetente' => $this->sender,
-            'destinatario' => $this->receiver,
-            'volumes' => $this->volumes,
-
-            'tipo_cobranca' => 1,
-            'tipo_frete' => 1,
-            'ecommerce' => true,
-
-            'token' => $this->config->get('freterapido_token')
-        );
-
-        // Adiciona o filtro se tiver
-        if ($filter = $this->config->get('freterapido_results')) {
-            $request['filtro'] = $filter;
-        }
-
-        // Define o limite de resultados configurado
-        if ($limit = $this->config->get('freterapido_limit')) {
-            $request['limite'] = $limit;
-        }
-
-        return $request;
-    }
-
-    /**
      * Formata a oferta retornada pela API para o esperado pelo OpenCart
      *
      * @param $key
@@ -181,16 +290,14 @@ class ModelExtensionShippingFreteRapido extends Model
      * @return array
      */
     function formatOffer($key, $carrier) {
-        $posting_cost = $this->config->get('freterapido_post_cost') ?: 0;
-        $price = $carrier['preco'] + $posting_cost;
+        $price = $carrier['preco_frete'];
 
         $text_offer_part_one = $this->language->get('text_offer_part_one');
         $text_offer_part_two_singular = $this->language->get('text_offer_part_two_singular');
         $text_offer_part_two_plural = $this->language->get('text_offer_part_two_plural');
 
-        // Soma o prazo de postagem e fabricação ao prazo de entrega da Transportadora
-        $deadline_for_posting = $this->config->get('freterapido_post_deadline') ?: 0;
-        $deadline = $carrier['prazo_entrega'] + $deadline_for_posting + $this->manufacturing_deadline;
+        // Soma o prazo de fabricação ao prazo de entrega da Transportadora
+        $deadline = $carrier['prazo_entrega'] + $this->manufacturing_deadline;
         $deadline_text = $deadline == 1 ? $text_offer_part_two_singular : $text_offer_part_two_plural;
 
         // Coloca o símbolo da moeda do usuário, mas não converte o valor
@@ -207,7 +314,7 @@ class ModelExtensionShippingFreteRapido extends Model
         return array(
             'code' => 'freterapido.' . $key,
             'title' => $title,
-            'cost' => $carrier['preco'],
+            'cost' => $carrier['custo_frete'],
             'tax_class_id' => 0,
             'text' => $text
         );
@@ -234,10 +341,10 @@ class ModelExtensionShippingFreteRapido extends Model
 
             $volume = array(
                 'quantidade' => $product['quantity'],
-                'altura' => $height ?: $this->default_dimensions['height'],
-                'largura' => $width ?: $this->default_dimensions['width'],
-                'comprimento' => $length ?: $this->default_dimensions['length'],
-                'peso' => $weight ?: ($this->default_dimensions['weight'] * $product['quantity']),
+                'altura' => $height,
+                'largura' => $width,
+                'comprimento' => $length,
+                'peso' => $weight,
                 'valor' => $product['total'],
                 'sku' => $product_from_db['sku']
             );
@@ -303,35 +410,6 @@ class ModelExtensionShippingFreteRapido extends Model
                 'cep' => $this->onlyNumbers($address['postcode'])
             )
         );
-    }
-
-    /**
-     * Realiza a requisição na no endereço da API
-     *
-     * @param $url
-     * @param array $params
-     * @return array
-     */
-    function doRequest($url, $params = array()) {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        $data_string = json_encode($params);
-
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($data_string)
-        ));
-
-        $result = curl_exec($ch);
-        $info = curl_getinfo($ch);
-
-        curl_close($ch);
-
-        return ['info' => $info, 'result' => json_decode($result, true)];
     }
 
     /**
