@@ -6,7 +6,6 @@ class ModelExtensionShippingFreteRapido extends Model
     private $sender;
     private $receiver;
     private $volumes;
-    private $correios;
 
     private $manufacturing_deadline = 0;
 
@@ -86,7 +85,6 @@ class ModelExtensionShippingFreteRapido extends Model
         $this->volumes = $this->getVolumes($products);
         $this->sender = $this->getSender();
         $this->receiver = $this->getReceiver($address);
-        $this->correios = $this->getCorreiosConfig();
     }
 
     /**
@@ -158,8 +156,6 @@ class ModelExtensionShippingFreteRapido extends Model
             'tipo_cobranca' => 1,
             'tipo_frete' => 1,
             'ecommerce' => true,
-
-            'correios' => $this->correios,
 
             'token' => $this->config->get('freterapido_token')
         );
@@ -296,11 +292,7 @@ class ModelExtensionShippingFreteRapido extends Model
 
     function getSender() {
         return array(
-            'cnpj' => $this->onlyNumbers($this->config->get('freterapido_cnpj')),
-            'inscricao_estadual' => $this->config->get('freterapido_ie'),
-            'endereco' => array(
-                'cep' => $this->onlyNumbers($this->config->get('freterapido_postcode'))
-            )
+            'cnpj' => $this->onlyNumbers($this->config->get('freterapido_cnpj'))
         );
     }
 
@@ -310,14 +302,6 @@ class ModelExtensionShippingFreteRapido extends Model
             'endereco' => array(
                 'cep' => $this->onlyNumbers($address['postcode'])
             )
-        );
-    }
-
-    function getCorreiosConfig() {
-        return array(
-            'valor_declarado' => $this->config->get('freterapido_correios_valor_declarado') === "on",
-            'mao_propria' => $this->config->get('freterapido_correios_mao_propria') === "on",
-            'aviso_recebimento' => $this->config->get('freterapido_correios_aviso_recebimento') === "on",
         );
     }
 

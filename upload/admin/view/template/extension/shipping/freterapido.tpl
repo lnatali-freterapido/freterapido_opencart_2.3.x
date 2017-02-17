@@ -63,51 +63,10 @@
               <?php } ?>
             </div>
           </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-ie"><?php echo $entry_ie; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="freterapido_ie" value="<?php echo $freterapido_ie; ?>" placeholder="<?php echo $entry_ie; ?>" id="input-ie" class="form-control" />
-              <?php if ($error_ie) { ?>
-              <div class="text-danger"><?php echo $error_ie; ?></div>
-              <?php } ?>
-            </div>
-          </div>
           <div class="form-group">
-            <div class="col-sm-2 control-label"></div>
+            <label class="col-sm-2 control-label" for="input-results"><?php echo $entry_results; ?></label>
             <div class="col-sm-10">
-              <h3>Correios</h3>
-              <label for="input-correios-valor-declarado">
-                <?php if ($freterapido_correios_valor_declarado) { ?>
-                <input type="checkbox" name="freterapido_correios_valor_declarado" id="input-correios-valor-declarado" checked="checked" />
-                <?php } else { ?>
-                <input type="checkbox" name="freterapido_correios_valor_declarado" id="input-correios-valor-declarado" />
-                <?php } ?>
-                <?php echo $text_correios_valor_declarado ?>
-              </label>
-              <br>
-              <label for="input-correios-mao-propria">
-                <?php if ($freterapido_correios_mao_propria) { ?>
-                <input type="checkbox" name="freterapido_correios_mao_propria" id="input-correios-mao-propria" checked="checked" />
-                <?php } else { ?>
-                <input type="checkbox" name="freterapido_correios_mao_propria" id="input-correios-mao-propria" />
-                <?php } ?>
-                <?php echo $text_correios_mao_propria ?>
-              </label>
-              <br>
-              <label for="input-correios-aviso-recebimento">
-                <?php if ($freterapido_correios_aviso_recebimento) { ?>
-                <input type="checkbox" name="freterapido_correios_aviso_recebimento" id="input-correios-aviso-recebimento" checked="checked" />
-                <?php } else { ?>
-                <input type="checkbox" name="freterapido_correios_aviso_recebimento" id="input-correios-aviso-recebimento" />
-                <?php } ?>
-                <?php echo $text_correios_aviso_recebimento ?>
-              </label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label"><?php echo $entry_results; ?></label>
-            <div class="col-sm-10">
-              <select name="freterapido_results" id="input-status" class="form-control">
+              <select name="freterapido_results" id="input-results" class="form-control">
                 <option value="0" <?php echo $freterapido_results == 0 ? 'selected="selected"' : '' ?>>
                 <?php echo $text_results_nofilter; ?>
                 </option>
@@ -126,15 +85,6 @@
               <input type="number" class="form-control" min="0" max="20" step="1" value="<?php echo $freterapido_limit; ?>" placeholder="<?php echo $entry_limit; ?>" name="freterapido_limit" id="input-limit">
             </div>
           </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-postcode"><?php echo $entry_postcode; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="freterapido_postcode" value="<?php echo $freterapido_postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-postcode" class="form-control" />
-              <?php if ($error_postcode) { ?>
-              <div class="text-danger"><?php echo $error_postcode; ?></div>
-              <?php } ?>
-            </div>
-          </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-post-deadline"><?php echo $entry_post_deadline; ?></label>
             <div class="col-sm-10">
@@ -147,6 +97,13 @@
             <div class="col-sm-10">
               <input type="number" min="0" step="0.1" name="freterapido_post_cost" value="<?php echo $freterapido_post_cost; ?>" placeholder="<?php echo $entry_post_cost; ?>" id="input-post-cost" class="form-control" />
               <span><?php echo $help_post_cost ?></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-additional-percentage"><?php echo $entry_additional_percentage; ?></label>
+            <div class="col-sm-10">
+              <input type="number" min="0" step="0.1" name="freterapido_additional_percentage" value="<?php echo $freterapido_additional_percentage; ?>" placeholder="<?php echo $entry_additional_percentage; ?>" id="input-additional-percentage" class="form-control" />
+              <span><?php echo $help_additional_percentage ?></span>
             </div>
           </div>
           <div class="form-group">
@@ -190,7 +147,6 @@
 <script>
     jQuery(function($){
         $("#input-cnpj").mask("99.999.999/9999-99");
-        $("#input-postcode").mask("99.999-999");
     });
 </script>
 <?php echo $footer; ?>
