@@ -89,3 +89,13 @@ INSERT INTO fr_category
   (62, 'Cargas refrigeradas/congeladas', 62),
   (63, 'Papelão', 63),
   (64, 'Outros', 999);
+
+-- Cria a tabela para inserir metadata dos fretes
+
+CREATE TABLE IF NOT EXISTS `oc_order_meta`
+(
+  meta_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  order_id INT(11) NOT NULL,
+  meta_key VARCHAR(255),
+  meta_value LONGTEXT
+);

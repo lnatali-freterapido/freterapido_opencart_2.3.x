@@ -1,6 +1,27 @@
 <?php
-class ControllerExtensionShippingFreteRapido  extends Controller {
+class ControllerExtensionShippingFreteRapido extends Controller {
     private $error = array();
+
+    public function install() {
+        $this->load->model('extension/event');
+        $this->load->model('localisation/language');
+        $this->load->model('localisation/order_status');
+        $this->load->language('extension/shipping/freterapido');
+
+        $this->model_extension_event->addEvent('freterapido_add_order_history', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/shipping/freterapido/eventAddOrderHistory');
+        $this->model_extension_event->addEvent('freterapido_add_order', 'catalog/controller/checkout/confirm/after', 'extension/shipping/freterapido/storeShipping');
+
+        // Insere o status que será usado para a contratação
+        $languages = $this->model_localisation_language->getLanguages();
+        $new_order_status = array();
+        $text_status_awaiting_shipment = $this->language->get('text_status_awaiting_shipment');
+
+        foreach ($languages as $language) {
+            $new_order_status['order_status'][$language['language_id']] = array('name' => $text_status_awaiting_shipment);
+        }
+
+        $this->model_localisation_order_status->addOrderStatus($new_order_status);
+    }
 
     public function index() {
         $this->load->language('extension/shipping/freterapido');
@@ -200,5 +221,26 @@ class ControllerExtensionShippingFreteRapido  extends Controller {
         }
 
         return !$this->error;
+    }
+
+    public function uninstall() {
+        $this->load->model('extension/event');
+        $this->load->model('localisation/order_status');
+        $this->load->language('extension/shipping/freterapido');
+
+        $this->model_extension_event->deleteEvent('freterapido_add_order_history');
+        $this->model_extension_event->deleteEvent('freterapido_add_order');
+
+        // Exclui o status usado na contratação
+        $statuses = $this->model_localisation_order_status->getOrderStatuses();
+        $text_status_awaiting_shipment = $this->language->get('text_status_awaiting_shipment');
+
+        $fr_order_status = array_filter($statuses, function ($status) use ($text_status_awaiting_shipment) {
+            return $status['name'] == $text_status_awaiting_shipment;
+        });
+
+        if (count($fr_order_status) > 0) {
+            $this->model_localisation_order_status->deleteOrderStatus(array_pop($fr_order_status)['order_status_id']);
+        }
     }
 }

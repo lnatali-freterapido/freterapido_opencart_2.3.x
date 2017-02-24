@@ -1,180 +1,4 @@
 <?php
-class FreterapidoHttp {
-    static function do_request($url, $params = array(), $method = 'POST') {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        $data_string = json_encode($params);
-
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($data_string)
-        ));
-
-        $result = curl_exec($ch);
-        $info = curl_getinfo($ch);
-
-        curl_close($ch);
-
-        return ['info' => $info, 'result' => json_decode($result, true)];
-    }
-}
-
-class FreterapidoShipping {
-    private $config;
-    private $sender;
-    private $receiver;
-    private $dispatcher;
-    private $volumes;
-
-    private $default_dimensions = [
-        'height' => 0.5,
-        'width' => 0.5,
-        'length' => 0.5,
-        'weight' => 1
-    ];
-
-    public function __construct(array $config) {
-        $this->config = array_merge([
-            'tipo_cobranca' => 1,
-            'tipo_frete' => 1,
-            'ecommerce' => true,
-        ], $config);
-    }
-
-    public function set_default_dimensions(array $dimensions) {
-        foreach ($this->default_dimensions as $dimension => $value) {
-            if (!isset($dimensions[$dimension])) {
-                continue;
-            }
-
-            $new_value = (float) $dimensions[$dimension];
-
-            if ($new_value < $value) {
-                continue;
-            }
-
-            $this->default_dimensions[$dimension] = $new_value;
-        }
-
-        return $this;
-    }
-
-    public function add_sender(array $sender) {
-        $this->sender = $sender;
-
-        return $this;
-    }
-
-    public function add_receiver(array $receiver) {
-        $this->receiver = $receiver;
-
-        return $this;
-    }
-
-    public function add_dispatcher(array $dispatcher) {
-        $this->dispatcher = $dispatcher;
-
-        return $this;
-    }
-
-    public function add_volumes(array $volumes) {
-        $this->volumes = array_map(function ($volume) {
-            if (!$volume['altura']) {
-                $volume['altura'] = $this->default_dimensions['height'];
-            }
-
-            if (!$volume['largura']) {
-                $volume['largura'] = $this->default_dimensions['width'];
-            }
-
-            if (!$volume['comprimento']) {
-                $volume['comprimento'] = $this->default_dimensions['length'];
-            }
-
-            if (!$volume['peso']) {
-                $volume['peso'] = $this->default_dimensions['weight'] * $volume['quantidade'];
-            }
-
-            return $volume;
-        }, $volumes);
-
-        return $this;
-    }
-
-    /**
-     * @param int $filter
-     * @return $this
-     */
-    public function set_filter($filter) {
-        if ($filter) {
-            $this->config['filtro'] = $filter;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param int $limit
-     * @return $this
-     */
-    public function set_limit($limit) {
-        if ($limit) {
-            $this->config['limite'] = $limit;
-        }
-
-        return $this;
-    }
-
-    private function format_request() {
-        $request = array();
-
-        if ($this->dispatcher) {
-            $request['expedidor'] = $this->dispatcher;
-        }
-
-        return array_merge(
-            $request,
-            array(
-                'remetente' => $this->sender,
-                'destinatario' => $this->receiver,
-                'volumes' => $this->volumes,
-                'tipo_cobranca' => 1,
-                'tipo_frete' => 1,
-                'ecommerce' => true,
-            ),
-            $this->config
-        );
-    }
-
-    public function get_quote() {
-        $response = FreterapidoHttp::do_request(FR_API_URL . 'embarcador/v1/quote-simulator', $this->format_request());
-
-        if ((int)$response['info']['http_code'] === 401) {
-            throw new InvalidArgumentException();
-        }
-
-        $result = $response['result'];
-
-        if (!$result || !isset($result['transportadoras']) || count($result['transportadoras']) === 0) {
-            throw new UnexpectedValueException();
-        }
-
-        $result['transportadoras'] = array_map(function ($carrier) {
-            if (strtolower($carrier['nome']) === 'correios') {
-                $carrier['nome'] .= " - {$carrier['servico']}";
-            }
-
-            return $carrier;
-        }, $result['transportadoras']);
-
-        return $result;
-    }
-}
-
 class ModelExtensionShippingFreteRapido extends Model
 {
     private $sender;
@@ -191,7 +15,9 @@ class ModelExtensionShippingFreteRapido extends Model
     private $default_fr_category = 999;
 
     function getQuote($address) {
-        define('FR_API_URL', 'http://api-externa.freterapido.app/');
+        foreach (['config', 'shipping', 'http', 'helpers'] as $file_name) {
+            include_once(DIR_APPLICATION . 'model/extension/freterapido/' . $file_name . '.php');
+        }
 
         $this->load->language('extension/shipping/freterapido');
 
@@ -237,6 +63,7 @@ class ModelExtensionShippingFreteRapido extends Model
             $method_data['error'] = $this->language->get('text_error_auth_api');
             return $method_data;
         } catch (UnexpectedValueException $unexpected_value) {
+            $this->log->write($unexpected_value->getMessage());
             // Outros erros não faz nada
             return array();
         }
@@ -245,7 +72,10 @@ class ModelExtensionShippingFreteRapido extends Model
 
         // Prepara o retorno das ofertas
         foreach ($response['transportadoras'] as $key => $carrier) {
-            $quote_data[] = $this->formatOffer($key, $carrier);
+            $offer = $this->formatOffer($key, $carrier);
+            $offer['meta_data']['token'] = $response['token_oferta'];
+
+            $quote_data[] = $offer;
         }
 
         return array_merge($method_data, ['quote' => $quote_data]);
@@ -316,7 +146,8 @@ class ModelExtensionShippingFreteRapido extends Model
             'title' => $title,
             'cost' => $carrier['custo_frete'],
             'tax_class_id' => 0,
-            'text' => $text
+            'text' => $text,
+            'meta_data' => array('oferta' => $carrier['oferta'])
         );
     }
 
