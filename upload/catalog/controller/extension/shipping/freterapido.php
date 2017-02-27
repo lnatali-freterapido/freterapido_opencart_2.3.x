@@ -6,7 +6,6 @@ class ControllerExtensionShippingFreterapido extends Controller {
         }
 
         $this->load->model('account/order');
-        $this->load->model('account/order');
         $this->load->model('checkout/order');
         $this->load->model('checkout/order_meta');
         $this->load->model('setting/setting');
@@ -33,6 +32,10 @@ class ControllerExtensionShippingFreterapido extends Controller {
         $order = $this->model_checkout_order->getOrder($order_id);
 
         $custom_fields = $order['custom_field'];
+
+        if (!is_array($custom_fields)) {
+            return;
+        }
 
         $custom_field_key = array_reduce(array_keys($custom_fields), function ($carry, $key) {
             $custom_field = $this->model_account_custom_field->getCustomField($key);

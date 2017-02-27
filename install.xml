@@ -190,7 +190,7 @@
             <add position="after" offset="2"><![CDATA[
               <?php if ($fr_quote) { ?>
               <tr>
-                <td><button data-toggle="tooltip" title="<?php echo 'Código do frete contratado no Frete Rápido'; ?>" class="btn btn-info btn-xs"><i class="fa fa-clock-o fa-fw"></i></button></td>
+                <td><button data-toggle="tooltip" title="<?php echo $text_shipping_code; ?>" class="btn btn-info btn-xs"><i class="fa fa-clock-o fa-fw"></i></button></td>
                 <td><a target="_blank" href="//freterapido.com/?id=<?php echo substr($fr_quote[0], 1); ?>#/rastreamento-carga"><?php echo $fr_quote[0]; ?></a></td>
               </tr>
               <?php } ?>
