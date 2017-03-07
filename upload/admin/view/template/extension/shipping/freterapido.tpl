@@ -34,7 +34,7 @@
               </br>
               O token e as configurações dos Correios estão disponíveis no seu <a href="https://freterapido.com/painel/" target="_blank"<name />Painel administrativo</a>.
               </br>
-              Em caso de dúvidas, reporte de bugs ou sugestão de melhorias, acesse a <a href="https://github.com/freterapido/freterapido_magento" target="_blank"<name />documentação deste módulo no Github</a>.
+              Em caso de dúvidas, reporte de bugs ou sugestão de melhorias, acesse a <a href="https://github.com/freterapido/freterapido_opencart_2.3.x" target="_blank"<name />documentação deste módulo no Github</a>.
               </br>
             </div>
           </div>
