@@ -144,7 +144,7 @@ Encontrou algum bug ou tem sugestões de melhorias no código? Sencacional! Não
 
 
 
-[1]: https://www.opencart.com/index.php?route=marketplace/extension&filter_search=frete%20r%C3%A1pido "OpenCart Extension Store"
+[1]: https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30147&filter_search=frete%20rapido&filter_category_id=4 "OpenCart Extension Store"
 [2]: https://freterapido.com/painel/?origin=github_opencart "Painel do Frete Rápido"
 [3]: mailto:suporte@freterapido.com "E-mail para a galera super gente fina :)"
 [4]: https://github.com/freterapido/freterapido_opencart_2.3.x/archive/master.zip
