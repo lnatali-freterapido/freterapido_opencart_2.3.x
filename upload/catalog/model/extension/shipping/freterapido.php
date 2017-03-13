@@ -41,9 +41,6 @@ class ModelExtensionShippingFreteRapido extends Model
             $shipping = new FreterapidoShipping([
                 'token' => $this->config->get('freterapido_token'),
                 'codigo_plataforma' => '58b97346d',
-                'custo_adicional' => $this->config->get('freterapido_post_cost') ?: 0,
-                'prazo_adicional' => $this->config->get('freterapido_post_deadline') ?: 0,
-                'percentual_adicional' => $this->config->get('freterapido_additional_percentage') / 100,
             ]);
 
             $response = $shipping
@@ -120,7 +117,7 @@ class ModelExtensionShippingFreteRapido extends Model
      * @return array
      */
     function formatOffer($key, $carrier) {
-        $price = $carrier['preco_frete'];
+        $price = $carrier['preco_final'];
 
         $text_offer_part_one = $this->language->get('text_offer_part_one');
         $text_offer_part_two_singular = $this->language->get('text_offer_part_two_singular');
@@ -144,7 +141,7 @@ class ModelExtensionShippingFreteRapido extends Model
         return array(
             'code' => 'freterapido.' . $key,
             'title' => $title,
-            'cost' => $carrier['custo_frete'],
+            'cost' => $carrier['preco'],
             'tax_class_id' => 0,
             'text' => $text,
             'meta_data' => array('oferta' => $carrier['oferta'])

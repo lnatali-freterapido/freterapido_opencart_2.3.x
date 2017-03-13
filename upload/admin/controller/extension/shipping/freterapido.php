@@ -62,9 +62,6 @@ class ControllerExtensionShippingFreteRapido extends Controller {
         $data['entry_cnpj']= $this->language->get('entry_cnpj');
         $data['entry_results']= $this->language->get('entry_results');
         $data['entry_limit']= $this->language->get('entry_limit');
-        $data['entry_post_deadline']= $this->language->get('entry_post_deadline');
-        $data['entry_post_cost']= $this->language->get('entry_post_cost');
-        $data['entry_additional_percentage']= $this->language->get('entry_additional_percentage');
         $data['entry_dimension']= $this->language->get('entry_dimension');
         $data['entry_length']= $this->language->get('entry_length');
         $data['entry_width']= $this->language->get('entry_width');
@@ -72,9 +69,6 @@ class ControllerExtensionShippingFreteRapido extends Controller {
 
         $data['help_cnpj'] = $this->language->get('help_cnpj');
         $data['help_freterapido_token'] = $this->language->get('help_freterapido_token');
-        $data['help_post_deadline'] = $this->language->get('help_post_deadline');
-        $data['help_post_cost'] = $this->language->get('help_post_cost');
-        $data['help_additional_percentage'] = $this->language->get('help_additional_percentage');
         $data['help_dimension'] = $this->language->get('help_dimension');
         $data['help_dimension_unit'] = $this->language->get('help_dimension_unit');
 
@@ -132,24 +126,6 @@ class ControllerExtensionShippingFreteRapido extends Controller {
             $data['freterapido_cnpj'] = $this->request->post['freterapido_cnpj'];
         } else {
             $data['freterapido_cnpj'] = $this->config->get('freterapido_cnpj');
-        }
-
-        if (isset($this->request->post['freterapido_post_deadline'])) {
-            $data['freterapido_post_deadline'] = $this->request->post['freterapido_post_deadline'];
-        } else {
-            $data['freterapido_post_deadline'] = $this->config->get('freterapido_post_deadline');
-        }
-
-        if (isset($this->request->post['freterapido_post_cost'])) {
-            $data['freterapido_post_cost'] = $this->request->post['freterapido_post_cost'];
-        } else {
-            $data['freterapido_post_cost'] = $this->config->get('freterapido_post_cost');
-        }
-
-        if (isset($this->request->post['freterapido_additional_percentage'])) {
-            $data['freterapido_additional_percentage'] = $this->request->post['freterapido_additional_percentage'];
-        } else {
-            $data['freterapido_additional_percentage'] = $this->config->get('freterapido_additional_percentage');
         }
 
         if (isset($this->request->post['freterapido_results'])) {
