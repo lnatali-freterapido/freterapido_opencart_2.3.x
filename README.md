@@ -54,9 +54,6 @@ Links úteis:
 - **CNPJ da loja:** CNPJ da sua empresa conforme registrado no Frete Rápido.
 - **Resultados:** Define como deseja receber as cotações.
 - **Limite de resultados:** Define a quantidade máxima de cotações que deseja obter.
-- **Prazo adicional de envio/postagem (dias):** Permitir inserir a quantidade de dias necessário para despacho das mercadorias. Esse valor será acrescido ao prazo do frete.
-- **Custo adicional de envio/postagem (R$):** Permite informar um custo adicional de despacho das mercadorias. Esse valor será acrescido ao valor do frete.
-- **Percentual adicional (%):** Permite informar uma porcentagem adicional sobre o custo do frete. Esse valor será acrescido ao valor do frete.
 - **Dimensões padrões (C x L x A):** Permite informar dimensões padrões de encomendas, geralmente usado quando se tem um único tipo de encomenda.
 - **Token de integração:** Token de integração da sua empresa disponível no [Painel administrativo do Frete Rápido][2] > Empresa > Integração.
 - **Ordem:** Ordem do plugin na sua loja.
