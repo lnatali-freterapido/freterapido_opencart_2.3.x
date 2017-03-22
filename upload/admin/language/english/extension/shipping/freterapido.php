@@ -29,9 +29,6 @@ $_['entry_geo_zone']      			 = 'Região Geográfica';
 $_['entry_cnpj']      				 = 'CNPJ da loja';
 $_['entry_results']      			 = 'Resultados';
 $_['entry_limit']      				 = 'Limite de resultados';
-$_['entry_post_deadline']   		 = 'Prazo adicional de envio/postagem';
-$_['entry_post_cost']      			 = 'Custo adicional de envio/postagem';
-$_['entry_additional_percentage']    = 'Percentual adicional';
 $_['entry_sort_order']			     = 'Ordem';
 $_['entry_freterapido_token']    	 = 'Token de integração';
 $_['entry_freterapido_token_code']   = 'Token';
@@ -43,9 +40,6 @@ $_['entry_height']                   = 'Altura';
 // Help
 $_['help_cnpj']                  = 'Informe o mesmo CNPJ cadastrado no Frete Rápido';
 $_['help_freterapido_token']     = 'Este token é fornecido pelo Frete Rápido. Entre em contato para saber mais.';
-$_['help_post_deadline'] 	     = 'Em dias';
-$_['help_post_cost'] 		     = 'Em R$';
-$_['help_additional_percentage'] = 'Em %';
 $_['help_dimension']             = 'Serão usadas caso as dimensões dos produtos não tenham sido informadas';
 $_['help_dimension_unit']        = 'Em metros';
 
