@@ -117,7 +117,7 @@ class ModelExtensionShippingFreteRapido extends Model
      * @return array
      */
     function formatOffer($key, $carrier) {
-        $price = $carrier['preco_final'];
+        $price = $carrier['preco_frete'];
 
         $text_offer_part_one = $this->language->get('text_offer_part_one');
         $text_offer_part_two_singular = $this->language->get('text_offer_part_two_singular');
@@ -141,7 +141,7 @@ class ModelExtensionShippingFreteRapido extends Model
         return array(
             'code' => 'freterapido.' . $key,
             'title' => $title,
-            'cost' => $carrier['preco'],
+            'cost' => $carrier['custo_frete'],
             'tax_class_id' => 0,
             'text' => $text,
             'meta_data' => array('oferta' => $carrier['oferta'])
