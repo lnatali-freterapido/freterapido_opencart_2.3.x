@@ -1,9 +1,12 @@
+
+
+
 ![Frete Rápido - Sistema Inteligente de Gestão Logística](https://freterapido.com/imgs/frete_rapido.png)
 ===
 
 ### **Módulo para plataforma OpenCart**
 
-Versão do módulo: 1.0
+Versão do módulo: 1.0.1
 
 Compatibilidade com OpenCart: **2.3.x**
 
@@ -48,15 +51,12 @@ Links úteis:
 
 ![Configurando o módulo do Frete Rápido](https://freterapido.com/dev/imgs/opencart_doc/2.3/extension_edit.PNG "Editando o módulo")
 
-![Configurando módulo do Frete Rápido](https://freterapido.com/dev/imgs/opencart_doc/2.3/extension_configuration.png "Configurações do módulo")
+![Configurando o módulo do Frete Rápido](https://freterapido.com/dev/imgs/opencart_doc/2.3/extension_configuration.png "Configurações do módulo")
 
 - **Habilitar:** Habilita ou desabilita o módulo conforme sua necessidade.
 - **CNPJ da loja:** CNPJ da sua empresa conforme registrado no Frete Rápido.
 - **Resultados:** Define como deseja receber as cotações.
 - **Limite de resultados:** Define a quantidade máxima de cotações que deseja obter.
-- **Prazo adicional de envio/postagem (dias):** Permitir inserir a quantidade de dias necessário para despacho das mercadorias. Esse valor será acrescido ao prazo do frete.
-- **Custo adicional de envio/postagem (R$):** Permite informar um custo adicional de despacho das mercadorias. Esse valor será acrescido ao valor do frete.
-- **Percentual adicional (%):** Permite informar uma porcentagem adicional sobre o custo do frete. Esse valor será acrescido ao valor do frete.
 - **Dimensões padrões (C x L x A):** Permite informar dimensões padrões de encomendas, geralmente usado quando se tem um único tipo de encomenda.
 - **Token de integração:** Token de integração da sua empresa disponível no [Painel administrativo do Frete Rápido][2] > Empresa > Integração.
 - **Ordem:** Ordem do plugin na sua loja.
@@ -144,9 +144,9 @@ Encontrou algum bug ou tem sugestões de melhorias no código? Sencacional! Não
 
 
 
-  [1]: https://www.opencart.com/index.php?route=marketplace/extension&filter_search=frete%20r%C3%A1pido "OpenCart Extension Store"
-  [2]: https://freterapido.com/painel/?origin=github_opencart "Painel do Frete Rápido"
-  [3]: mailto:suporte@freterapido.com "E-mail para a galera super gente fina :)"
-  [4]: https://github.com/freterapido/freterapido_opencart_2.3.x/archive/master.zip
-  [5]: https://github.com/freterapido/freterapido_magento/blob/master/LICENSE
-  [6]: https://github.com/freterapido/opencart_shipping_product_2.x
+[1]: https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30147&filter_search=frete%20r%C3%A1pido "OpenCart Extension Store"
+[2]: https://freterapido.com/painel/?origin=github_opencart "Painel do Frete Rápido"
+[3]: mailto:suporte@freterapido.com "E-mail para a galera super gente fina :)"
+[4]: https://github.com/freterapido/freterapido_opencart_2.3.x/archive/master.zip
+[5]: https://github.com/freterapido/freterapido_magento/blob/master/LICENSE
+[6]: https://github.com/freterapido/opencart_shipping_product_2.x
