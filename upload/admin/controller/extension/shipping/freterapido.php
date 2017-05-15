@@ -62,6 +62,7 @@ class ControllerExtensionShippingFreteRapido extends Controller {
         $data['entry_cnpj']= $this->language->get('entry_cnpj');
         $data['entry_results']= $this->language->get('entry_results');
         $data['entry_limit']= $this->language->get('entry_limit');
+        $data['entry_free_shipping']= $this->language->get('entry_free_shipping');
         $data['entry_dimension']= $this->language->get('entry_dimension');
         $data['entry_length']= $this->language->get('entry_length');
         $data['entry_width']= $this->language->get('entry_width');
@@ -138,6 +139,12 @@ class ControllerExtensionShippingFreteRapido extends Controller {
             $data['freterapido_limit'] = $this->request->post['freterapido_limit'];
         } else {
             $data['freterapido_limit'] = $this->config->get('freterapido_limit');
+        }
+
+        if (isset($this->request->post['freterapido_free_shipping'])) {
+            $data['freterapido_free_shipping'] = $this->request->post['freterapido_free_shipping'];
+        } else {
+            $data['freterapido_free_shipping'] = $this->config->get('freterapido_free_shipping');
         }
 
         if (isset($this->request->post['freterapido_msg_prazo'])) {
