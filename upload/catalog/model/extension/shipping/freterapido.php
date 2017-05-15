@@ -67,9 +67,17 @@ class ModelExtensionShippingFreteRapido extends Model
 
         $quote_data = array();
 
+        $order_by_keys = ['preco_frete', 'prazo_entrega'];
+
+        // Pega o frete mais barato
+        $offers_ordered = array_order_by($response['transportadoras'], $order_by_keys[0], SORT_ASC, $order_by_keys[1], SORT_ASC);
+        $free_shipping = array_shift($offers_ordered);
+
         // Prepara o retorno das ofertas
         foreach ($response['transportadoras'] as $key => $carrier) {
-            $offer = $this->formatOffer($key, $carrier);
+            $is_free = $carrier['oferta'] == $free_shipping['oferta'];
+
+            $offer = $this->formatOffer($key, $carrier, $is_free);
             $offer['meta_data']['token'] = $response['token_oferta'];
 
             $quote_data[] = $offer;
@@ -114,9 +122,10 @@ class ModelExtensionShippingFreteRapido extends Model
      *
      * @param $key
      * @param $carrier
+     * @param bool $free
      * @return array
      */
-    function formatOffer($key, $carrier) {
+    function formatOffer($key, $carrier, $free = false) {
         $price = $carrier['preco_frete'];
 
         $text_offer_part_one = $this->language->get('text_offer_part_one');
@@ -129,6 +138,10 @@ class ModelExtensionShippingFreteRapido extends Model
 
         // Coloca o símbolo da moeda do usuário, mas não converte o valor
         $price_formatted = $this->currency->format($price, $this->session->data['currency'], 1);
+
+        if ($free) {
+            $price_formatted = 'Frete Grátis';
+        }
 
         $text = "$text_offer_part_one $deadline $deadline_text - $price_formatted";
 
