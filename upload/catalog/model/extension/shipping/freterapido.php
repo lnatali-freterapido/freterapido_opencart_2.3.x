@@ -126,7 +126,6 @@ class ModelExtensionShippingFreteRapido extends Model
      *
      * @param $key
      * @param $carrier
-     * @param bool $free
      * @return array
      */
     function formatOffer($key, $carrier) {
