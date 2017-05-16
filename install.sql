@@ -69,7 +69,7 @@ INSERT INTO fr_category
   (42, 'Material Odontológico', 42),
   (43, 'Material Pet Shop / Rações', 43),
   (44, 'Material Veterinário', 44),
-  (45, 'Móveis / Utensílios', 45),
+  (45, 'Móveis montados', 45),
   (46, 'Moto Peças', 46),
   (47, 'Mudas / Plantas', 47),
   (48, 'Papelaria / Documentos', 48),
@@ -88,7 +88,17 @@ INSERT INTO fr_category
   (61, 'Vidros / Frágil', 61),
   (62, 'Cargas refrigeradas/congeladas', 62),
   (63, 'Papelão', 63),
-  (64, 'Outros', 999);
+  (64, 'Móveis desmontados', 64),
+  (65, 'Sofá', 65),
+  (66, 'Colchão', 66),
+  (67, 'Travesseiro', 67),
+  (68, 'Móveis com peças de vidro', 68),
+  (69, 'Acessórios de Airsoft / Paintball', 69),
+  (70, 'Acessórios de Pesca', 70),
+  (71, 'Simulacro de Arma / Airsoft', 71),
+  (72, 'Arquearia', 72),
+  (73, 'Acessórios de Arquearia', 73),
+  (74, 'Outros', 999);
 
 -- Cria a tabela para inserir metadata dos fretes
 
