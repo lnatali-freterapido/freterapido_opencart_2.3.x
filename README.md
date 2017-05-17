@@ -51,12 +51,13 @@ Links úteis:
 
 ![Configurando o módulo do Frete Rápido](https://freterapido.com/dev/imgs/opencart_doc/2.3/extension_edit.PNG "Editando o módulo")
 
-![Configurando o módulo do Frete Rápido](https://freterapido.com/dev/imgs/opencart_doc/2.3/extension_configuration.png "Configurações do módulo")
+![Configurando o módulo do Frete Rápido](https://freterapido.com/dev/imgs/opencart_doc/2.3/module_page.png "Configurações do módulo")
 
 - **Habilitar:** Habilita ou desabilita o módulo conforme sua necessidade.
 - **CNPJ da loja:** CNPJ da sua empresa conforme registrado no Frete Rápido.
 - **Resultados:** Define como deseja receber as cotações.
 - **Limite de resultados:** Define a quantidade máxima de cotações que deseja obter.
+- **Exibir Frete Grátis no frete mais barato:** Apresenta para o cliente da loja o frete mais barato como **Frete Grátis**.
 - **Dimensões padrões (C x L x A):** Permite informar dimensões padrões de encomendas, geralmente usado quando se tem um único tipo de encomenda.
 - **Token de integração:** Token de integração da sua empresa disponível no [Painel administrativo do Frete Rápido][2] > Empresa > Integração.
 - **Ordem:** Ordem do plugin na sua loja.
