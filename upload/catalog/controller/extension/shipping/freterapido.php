@@ -57,6 +57,7 @@ class ControllerExtensionShippingFreterapido extends Controller {
         try {
             $hire_shipping = new FreterapidoHireShipping($token);
             $response = $hire_shipping
+                ->add_order($order_id)
                 ->add_sender(array('cnpj' => $cnpj))
                 ->add_receiver(array(
                     'cnpj_cpf' => $cpf,
