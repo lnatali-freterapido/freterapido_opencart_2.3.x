@@ -41,9 +41,6 @@ class ModelExtensionShippingFreteRapido extends Model
             $shipping = new FreterapidoShipping([
                 'token' => $this->config->get('freterapido_token'),
                 'codigo_plataforma' => '58b97346d',
-                'custo_adicional' => $this->config->get('freterapido_post_cost') ?: 0,
-                'prazo_adicional' => $this->config->get('freterapido_post_deadline') ?: 0,
-                'percentual_adicional' => $this->config->get('freterapido_additional_percentage') / 100,
             ]);
 
             $response = $shipping

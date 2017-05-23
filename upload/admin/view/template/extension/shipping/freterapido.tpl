@@ -86,27 +86,6 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-post-deadline"><?php echo $entry_post_deadline; ?></label>
-            <div class="col-sm-10">
-              <input type="number" min="0" name="freterapido_post_deadline" value="<?php echo $freterapido_post_deadline; ?>" placeholder="<?php echo $entry_post_deadline; ?>" id="input-post-deadline" class="form-control" />
-              <span><?php echo $help_post_deadline ?></span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-post-cost"><?php echo $entry_post_cost; ?></label>
-            <div class="col-sm-10">
-              <input type="number" min="0" step="0.1" name="freterapido_post_cost" value="<?php echo $freterapido_post_cost; ?>" placeholder="<?php echo $entry_post_cost; ?>" id="input-post-cost" class="form-control" />
-              <span><?php echo $help_post_cost ?></span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-additional-percentage"><?php echo $entry_additional_percentage; ?></label>
-            <div class="col-sm-10">
-              <input type="number" min="0" step="0.1" name="freterapido_additional_percentage" value="<?php echo $freterapido_additional_percentage; ?>" placeholder="<?php echo $entry_additional_percentage; ?>" id="input-additional-percentage" class="form-control" />
-              <span><?php echo $help_additional_percentage ?></span>
-            </div>
-          </div>
-          <div class="form-group">
             <label class="col-sm-2 control-label" for="input-length"><span data-toggle="tooltip" title="<?php echo $help_dimension; ?>"><?php echo $entry_dimension; ?></span></label>
             <div class="col-sm-10">
               <div class="row">
