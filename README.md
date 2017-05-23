@@ -21,20 +21,20 @@ Links úteis:
 
 - [Baixe aqui a última versão][4] ;
 - Renomeie o arquivo que baixou de "**master.zip**" para "**freterapido.ocmod.zip**";
-![Renomeando arquivo](https://freterapido.com/dev/imgs/opencart_doc/2.3/rename.gif "Renomeando arquivo de instalação")
+![Renomeando arquivo](docs/img/rename.gif "Renomeando arquivo de instalação")
 - Acesse a área administrativa de sua loja para concluir a instalação;
 - Certifique-se as configurações de FTP estejam configuradas;
 - Navegue por **Extensions > Extensions Installer**, clique no botão "**Upload**" e procure o arquivo "**freterapido.ocmod.zip**".
-- Agora, vá em **Extensions > Modifications** e clique no botão "**Refresh**" (![Refresh](https://freterapido.com/dev/imgs/opencart_doc/2.3/refresh.PNG)). Conforme imagem abaixo.
+- Agora, vá em **Extensions > Modifications** e clique no botão "**Refresh**" (![Refresh](docs/img/refresh.PNG)). Conforme imagem abaixo.
 
-![Instalação do módulo](https://freterapido.com/dev/imgs/opencart_doc/2.3/extension_install.gif "Procedimentos de instalação")
+![Instalação do módulo](docs/img/extension_install.gif "Procedimentos de instalação")
 
 
 ###Habilitando o Módulo
 
 - Você precisa ir em **Extensions > Extensions > Extension List > Shipping**, procurar o plugin "**Frete Rápido**" na listagem "**Shipping**" e clicar no botão **Instalar** (+).
 
-![Habilitando o módulo](https://freterapido.com/dev/imgs/opencart_doc/2.3/extension_enabling.JPG "Habilitando o módulo")
+![Habilitando o módulo](docs/img/extension_enabling.JPG "Habilitando o módulo")
 
 ![Atenção! Faça backup da sua loja antes de realizar qualquer instalação.](https://freterapido.com/dev/imgs/magento_doc/attention_2.png "#FicaDica ;)")
 
@@ -44,11 +44,11 @@ Links úteis:
 
 ####1. Configurações do módulo:
 
-- Agora, configure o módulo em **Extensions > Extensions > Extension List > Shipping**, procurar o plugin "**Frete Rápido**" na listagem "**Shipping**" e clicar no botão **Editar** (![Ícone de edição](https://freterapido.com/dev/imgs/opencart_doc/2.3/edit_icon.PNG)).
+- Agora, configure o módulo em **Extensions > Extensions > Extension List > Shipping**, procurar o plugin "**Frete Rápido**" na listagem "**Shipping**" e clicar no botão **Editar** (![Ícone de edição](docs/img/edit_icon.PNG)).
 
-![Configurando o módulo do Frete Rápido](https://freterapido.com/dev/imgs/opencart_doc/2.3/extension_edit.PNG "Editando o módulo")
+![Configurando o módulo do Frete Rápido](docs/img/extension_edit.PNG "Editando o módulo")
 
-![Configurando o módulo do Frete Rápido](https://freterapido.com/dev/imgs/opencart_doc/2.3/extension_configuration.png "Configurações do módulo")
+![Configurando o módulo do Frete Rápido](docs/img/extension_configuration.png "Configurações do módulo")
 
 - **Habilitar:** Habilita ou desabilita o módulo conforme sua necessidade.
 - **CNPJ da loja:** CNPJ da sua empresa conforme registrado no Frete Rápido.
@@ -69,7 +69,7 @@ Para total usabilidade do módulo **Frete Rápido**, é necessário realizar alg
 
 - É necessário informar alguns dados de cada produto em: **Catalog > Products > Edit** (por produto) **>** aba **"Data"**.
 
-![Configurando dados dos produtos](https://freterapido.com/dev/imgs/opencart_doc/2.3/product_configuration.gif "Configuração dados de produtos")
+![Configurando dados dos produtos](docs/img/product_configuration.gif "Configuração dados de produtos")
 
 >**1. SKU:** Sugerimos definir um SKU para cada produto da sua loja. Não é obrigatório, mas se o SKU estiver definido, será possível realizar uma análise junto ao Frete Rápido.
 
@@ -82,13 +82,13 @@ Para total usabilidade do módulo **Frete Rápido**, é necessário realizar alg
 > **Atenção:** Considerar as dimensões e peso do produto com a embalagem pronta para envio/postagem.
 > É obrigatório ter o peso configurado em cada produto para que seja possível cotar o frete de forma eficiente. As dimensões podem ficar em branco e neste caso, serão utilizadas as medidas padrões informadas na configuração do plugin, mas é recomendado que cada produto tenha suas configurações próprias de peso e dimensões.
 
-![Configurando dados dos produtos](https://freterapido.com/dev/imgs/opencart_doc/2.3/product-configuration.jpg "Configuração dados de produtos")
+![Configurando dados dos produtos](docs/img/product-configuration.jpg "Configuração dados de produtos")
 
 ####3. Categorias
 
 - É necessário relacionar cada categoria da sua loja com as categorias do Frete Rápido em: **Catalog > Categories > Edit** (por produto) **>** aba **"Data"**.
 
-![Configuração de categorias ](https://freterapido.com/dev/imgs/opencart_doc/2.3/categories.gif "Configuração de categorias")
+![Configuração de categorias ](docs/img/categories.gif "Configuração de categorias")
 
 > **Obs:** Nem todas as categorias da sua loja podem estar na relação de categorias do Frete Rápido, mas é possível relacioná-las de forma ampla.
 >
