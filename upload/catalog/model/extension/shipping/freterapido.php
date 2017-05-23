@@ -69,8 +69,10 @@ class ModelExtensionShippingFreteRapido extends Model
 
         $order_by_keys = ['preco_frete', 'prazo_entrega'];
 
+        $has_min_value_free_shipping = $this->cart->getTotal() >= $this->config->get('freterapido_min_value_free_shipping');
+        $is_free_shipping_enabled = $this->config->get('freterapido_free_shipping') && $has_min_value_free_shipping;
+
         // Pega o frete mais barato
-        $is_free_shipping_enabled = $this->config->get('freterapido_free_shipping');
         $offers_ordered = array_order_by($response['transportadoras'], $order_by_keys[0], SORT_ASC, $order_by_keys[1], SORT_ASC);
         $free_shipping = array_shift($offers_ordered);
 

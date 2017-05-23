@@ -30,6 +30,7 @@ $_['entry_cnpj']      				 = 'CNPJ da loja';
 $_['entry_results']      			 = 'Resultados';
 $_['entry_limit']      				 = 'Limite de resultados';
 $_['entry_free_shipping']      		 = 'Exibir Frete Grátis no frete mais barato';
+$_['entry_min_value_free_shipping']  = 'Valor mínimo Frete Grátis';
 $_['entry_sort_order']			     = 'Ordem';
 $_['entry_freterapido_token']    	 = 'Token de integração';
 $_['entry_freterapido_token_code']   = 'Token';

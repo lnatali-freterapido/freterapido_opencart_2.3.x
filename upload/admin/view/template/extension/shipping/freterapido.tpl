@@ -100,6 +100,12 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-min-value-free-shipping"><?php echo $entry_min_value_free_shipping; ?></label>
+            <div class="col-sm-10">
+              <input type="text" name="freterapido_min_value_free_shipping" value="<?php echo $freterapido_min_value_free_shipping; ?>" placeholder="<?php echo $entry_min_value_free_shipping; ?>" id="input-min-value-free-shipping" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
             <label class="col-sm-2 control-label" for="input-length"><span data-toggle="tooltip" title="<?php echo $help_dimension; ?>"><?php echo $entry_dimension; ?></span></label>
             <div class="col-sm-10">
               <div class="row">
