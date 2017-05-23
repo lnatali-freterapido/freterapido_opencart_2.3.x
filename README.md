@@ -6,7 +6,7 @@
 
 ### **Módulo para plataforma OpenCart**
 
-Versão do módulo: 1.0.1
+Versão do módulo: 1.0.2
 
 Compatibilidade com OpenCart: **2.3.x**
 
@@ -58,6 +58,7 @@ Links úteis:
 - **Resultados:** Define como deseja receber as cotações.
 - **Limite de resultados:** Define a quantidade máxima de cotações que deseja obter.
 - **Exibir Frete Grátis no frete mais barato:** Apresenta para o cliente da loja o frete mais barato como **Frete Grátis**.
+- **Valor Mínimo Frete Grátis:**  Define o valor mínimo para ativar a regra de **Frete grátis**. Para valor **indefinido**, informe **0**.
 - **Dimensões padrões (C x L x A):** Permite informar dimensões padrões de encomendas, geralmente usado quando se tem um único tipo de encomenda.
 - **Token de integração:** Token de integração da sua empresa disponível no [Painel administrativo do Frete Rápido][2] > Empresa > Integração.
 - **Ordem:** Ordem do plugin na sua loja.
