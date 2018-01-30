@@ -1,11 +1,7 @@
 
 
 ![Frete Rápido - Sistema Inteligente de Gestão Logística](https://freterapido.com/imgs/frete_rapido.png)
-<p>
-    <a href="https://fr-slack.herokuapp.com" target="_blank">
-        <img src="https://fr-slack.herokuapp.com/badge.svg">
-    </a>
-</p>
+
 <hr>
 
 ### **Módulo para plataforma OpenCart**
