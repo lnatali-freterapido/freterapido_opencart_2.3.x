@@ -19,9 +19,14 @@ Links úteis:
 -------------
 
 ### IMPORTANTE
+
+Este módulo é apenas um referencial de integração e cabe ao cliente a função de configurá-lo e adaptá-lo a sua respectiva loja, levando em conta as particularidades e conflitos que podem surgir durante o processo de integração.
+
 A Frete Rápido não mantem e/ou oferece suporte para a integração com o **OpenCart**, apenas disponibilizamos um módulo de integração padrão que atente a maioria dos e-commerces que utilizam esta plataforma.
 
 Para qualquer modificação no módulo baseada no modelo de negócio do seu e-commerce, nós disponibilizamos aqui o código fonte do módulo integrado a [API do Frete Rápido][8] e aqui [neste link][7] você encontra a documentação de integrações e modificações do **OpenCart**.
+
+A Frete Rápido não se responsabiliza por eventualidades advindas deste módulo.
 
 --------------
 
