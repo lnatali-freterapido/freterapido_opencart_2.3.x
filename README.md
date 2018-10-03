@@ -24,7 +24,9 @@ Este módulo é apenas um referencial de integração e cabe ao cliente a funç�
 
 A Frete Rápido não mantem e/ou oferece suporte para a integração com o **OpenCart**, apenas disponibilizamos um módulo de integração padrão que atente a maioria dos e-commerces que utilizam esta plataforma.
 
-Para qualquer modificação no módulo baseada no modelo de negócio do seu e-commerce, nós disponibilizamos aqui o código fonte do módulo integrado a [API do Frete Rápido][8] e aqui [neste link][7] você encontra a documentação de integrações e modificações do **OpenCart**.
+**Este módulo não opera Dropshipphig!**
+
+Para qualquer modificação neste módulo, baseada no modelo de negócio do seu e-commerce, é possível alterar o código fonte antendendo a  [API da Frete Rápido][8]. E [neste link][7] você encontra a documentação de modificações do **OpenCart**.
 
 A Frete Rápido não se responsabiliza por eventualidades advindas deste módulo.
 
@@ -160,7 +162,7 @@ Encontrou algum bug ou tem sugestões de melhorias no código? Sencacional! Não
 
 [1]: https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30147&filter_search=frete%20r%C3%A1pido "OpenCart Extension Store"
 [2]: https://freterapido.com/painel/?origin=github_opencart "Painel do Frete Rápido"
-[3]: mailto:suporte@freterapido.com "E-mail para a galera super gente fina :)"
+[3]: mailto:suporte@freterapido.com "E-mail para uma galera super gente fina :)"
 [4]: https://github.com/freterapido/freterapido_opencart_2.3.x/archive/master.zip
 [5]: https://github.com/freterapido/freterapido_magento/blob/master/LICENSE
 [6]: https://github.com/freterapido/opencart_shipping_product_2.x
