@@ -126,7 +126,8 @@ Após instalar o plugin, sua página do produto deverá apresentar o campo para 
 --------
 
 ### Contratação do frete
-Para contratar um frente você precisa:
+
+Para contratar um frente e gerar uma solicitação de coleta, você deve seguir os passos:
 
 - Acessar Sales > Orders > [Uma ordem selecionada] > seção **Order History**.
 - Selecionar a opção **À espera do envio** no campo **Order Status**.
@@ -138,7 +139,7 @@ Para contratar um frente você precisa:
 
 --------
 
-### Observações gerais:
+### Considerações finais:
 1. Para obter cotações dos Correios é necessário configurar o seu contrato com os Correios no [Painel administrativo do Frete Rápido][2] > Empresa > Integração.
 
 2. Esse módulo atende solicitações de coleta para destinatários Pessoa Física. Para atender Pessoas Jurídicas, o módulo pode ser adaptado por você de acordo com a [API da Frete Rápido][8].
