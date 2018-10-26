@@ -74,7 +74,7 @@ A Frete Rápido não se responsabiliza por eventualidades advindas deste módulo
 - **Exibir Frete Grátis no frete mais barato:** Apresenta para o cliente da loja o frete mais barato como **Frete Grátis**.
 - **Valor Mínimo Frete Grátis:**  Define o valor mínimo para ativar a regra de **Frete grátis**. Para valor **indefinido**, informe **0**.
 - **Dimensões padrões (C x L x A):** Permite informar dimensões padrões de encomendas, geralmente usado quando se tem um único tipo de encomenda.
-- **Token de integração:** Token de integração da sua empresa disponível no [Painel administrativo do Frete Rápido][2] > Empresa > Integração.
+- **Token de integração:** Token de integração da sua empresa disponível no [Painel administrativo do Frete Rápido][2] > Configurações.
 - **Ordem:** Ordem do plugin na sua loja.
 
 > **Observação:** É importante informar todos os campos corretamente.
@@ -116,15 +116,6 @@ Para total usabilidade do módulo **Frete Rápido**, é necessário realizar alg
 
 --------
 
-### Cálculo do frete na página do produto
-
-Para cálculo do frete na página do produto, você precisa utilizar o plugin específico do Frete Rápido. Para instalá-lo, basta acessar sua documentação em [opencart_shipping_product_2.x][6].
-Após instalar o plugin, sua página do produto deverá apresentar o campo para calcular o frete com base no CEP.
-
-![Cálculo na página do produto](http://freterapido.com/dev/imgs/opencart_doc/2.0/cotacao_pagina_produto.gif "Página do produto")
-
---------
-
 ### Contratação do frete
 
 Para contratar um frente e gerar uma solicitação de coleta, você deve seguir os passos:
@@ -136,6 +127,15 @@ Para contratar um frente e gerar uma solicitação de coleta, você deve seguir 
 ![Cálculo na página do produto](http://freterapido.com/dev/imgs/opencart_doc/2.0/contratacao.gif "Página do produto")
 
 > **Observação**: Na seção **Order details** você encontra o código de rastreio do frete logo abaixo do nome da transportadora. Ao clicar sobre o código, você será direcionado à página de rastreio desse frete.
+
+--------
+
+### Cálculo do frete na página do produto
+
+Para cálculo do frete na página do produto, você precisa utilizar o plugin específico do Frete Rápido. Para instalá-lo, basta acessar sua documentação em [opencart_shipping_product_2.x][6].
+Após instalar o plugin, sua página do produto deverá apresentar o campo para calcular o frete com base no CEP.
+
+![Cálculo na página do produto](http://freterapido.com/dev/imgs/opencart_doc/2.0/cotacao_pagina_produto.gif "Página do produto")
 
 --------
 
