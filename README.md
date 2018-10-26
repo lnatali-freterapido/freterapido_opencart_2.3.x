@@ -129,7 +129,7 @@ Após instalar o plugin, sua página do produto deverá apresentar o campo para 
 
 Para contratar um frente e gerar uma solicitação de coleta, você deve seguir os passos:
 
-- Acessar Sales > Orders > [Uma ordem selecionada] > seção **Order History**.
+- Acessar Sales > Orders > [Pedido] > seção **Order History**.
 - Selecionar a opção **À espera do envio** no campo **Order Status**.
 - Clicar no botão **Add History**.
 
