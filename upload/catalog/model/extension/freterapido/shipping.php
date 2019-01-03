@@ -61,19 +61,19 @@ class FreterapidoShipping {
     public function add_volumes(array $volumes) {
         $this->volumes = array_map(function ($volume) {
             if (!$volume['altura']) {
-                $volume['altura'] = $this->default_dimensions['height'];
+                $volume['altura'] = (float) $this->default_dimensions['height'];
             }
 
             if (!$volume['largura']) {
-                $volume['largura'] = $this->default_dimensions['width'];
+                $volume['largura'] = (float) $this->default_dimensions['width'];
             }
 
             if (!$volume['comprimento']) {
-                $volume['comprimento'] = $this->default_dimensions['length'];
+                $volume['comprimento'] = (float) $this->default_dimensions['length'];
             }
 
             if (!$volume['peso']) {
-                $volume['peso'] = $this->default_dimensions['weight'] * $volume['quantidade'];
+                $volume['peso'] = (float) $this->default_dimensions['weight'] * $volume['quantidade'];
             }
 
             return $volume;
@@ -88,7 +88,7 @@ class FreterapidoShipping {
      */
     public function set_filter($filter) {
         if ($filter) {
-            $this->config['filtro'] = $filter;
+            $this->config['filtro'] = (int) $filter;
         }
 
         return $this;
@@ -100,7 +100,7 @@ class FreterapidoShipping {
      */
     public function set_limit($limit) {
         if ($limit) {
-            $this->config['limite'] = $limit;
+            $this->config['limite'] = (int) $limit;
         }
 
         return $this;
