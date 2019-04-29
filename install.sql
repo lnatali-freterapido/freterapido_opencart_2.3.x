@@ -107,7 +107,7 @@ INSERT INTO fr_category
   (80, 'Máquina / Equipamentos', 80),
   (81, 'Rações / Alimento para Animal', 81),
   (82, 'Artigos para Camping)', 82),
-  (74, 'Outros', 999);
+  (83, 'Outros', 999);
 
 -- Cria a tabela para inserir metadata dos fretes
 
